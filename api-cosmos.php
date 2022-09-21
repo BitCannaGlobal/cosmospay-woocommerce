@@ -106,7 +106,7 @@ if (isset($_GET['tx_hash']) && isset($_GET['order_id'])) {
       $dataChain = $chain;
     }        
   }    
-  // Check the currency from woocomerce and convert it to price chain
+  // Check the currency from woocommerce and convert it to price chain
   $currencyList = "usd,aed,ars,aud,bdt,bhd,bmd,brl,cad,chf,clp,cny,czk,dkk,eur,gbp,hkd,huf,idr,ils,inr,jpy,krw,kwd,lkr,mmk,mxn,myr,ngn,nok,nzd,php,pkr,pln,rub,sar,sek,sgd,thb,try,twd,uah,vef,vnd,zar,xdr";
   // $dataValueCoin = file_get_contents('https://api.coingecko.com/api/v3/simple/price?ids='.$dataChain['coingeckoId'].'&vs_currencies='.$currencyList);
   $dataValueCoin = wp_remote_retrieve_body( wp_remote_get( 'https://api.coingecko.com/api/v3/simple/price?ids='.$dataChain['coingeckoId'].'&vs_currencies='.$currencyList ) );
