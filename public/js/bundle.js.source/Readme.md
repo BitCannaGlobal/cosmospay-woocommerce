@@ -11,4 +11,4 @@ Compile
 
     webpack
 
-the source to include in the plugin is in `build/bundle.js`
+The source to include in the plugin is in `build/bundle.js`
