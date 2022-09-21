@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>
+            Keplr example
+        </title>
+
+       
+    </head>
+    <body>
+        <div id="app">
+            <div class="container-sm">
+            <br /> <br />
+            <!--<div id="address"></div>-->
+            <div id="returnResult"></div>
+        
+            <form name="sendForm">
+              <div class="row">
+                <div class="col-sm-6">
+                  <div class="card">
+                    <div class="card-body">
+                      <h5 class="card-title">Your Address</h5>
+                      <p class="card-text"><div id="address"></div></p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="card">
+                    <div class="card-body">
+                      <h5 class="card-title">Amount: $<span id="getAmount">1.5</span></h5>
+                      <p class="card-text"><div id="finalAmount"></div></p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <br />
+
+              <div class="btn-group-toggle" data-toggle="buttons" id="listChains">
+                <!--<label class="btn btn-secondary active">
+                  <input type="radio" id="atom" value="Cosmoshub" name="get_chain" checked> Atom
+                </label>-->
+                <label class="btn btn-secondary active">
+                  <input type="radio" id="BitCanna" value="BitCanna" name="get_chain" checked> Bitcanna
+                </label>
+                <label class="btn btn-secondary active">
+                  <input type="radio" id="Chihuahua" value="Chihuahua" name="get_chain" checked> Chihuahua
+                </label>  
+                <label class="btn btn-secondary active">
+                  <input type="radio" id="Akash" value="Akash" name="get_chain" checked> Akash
+                </label> 
+              </div>
+              
+              <br />
+<!--                <input type="radio" id="atom" value="atom" name="get_chain">
+                <label for="atom">Atom</label><br>
+                <input type="radio" id="bitcanna" value="bitcanna" name="get_chain">
+                <label for="bitcanna">Bitcanna</label><br>
+                <input type="radio" id="chihuahua" value="chihuahua" name="get_chain">
+                <label for="chihuahua">Chihuahua</label>
+  -->
+                <div class="form-group">
+                    <label for="recipient">Recipient</label>
+                    <input class="form-control" id="inputAddress" name="recipient">
+                </div>
+                <div class="form-group">
+                    <label for="amount">Amount</label>
+                    <div class="input-group">
+                        <input class="form-control" id="inputAmount" name="amount">
+                        <div class="input-group-append">
+                            <div class="input-group-text" id="viewDenom">ATOM</div>
+                        </div>
+                    </div>
+                </div>
+                <input class="form-control" id="order_id" name="order_id" value="1" type="hidden">
+                <input class="form-control" id="memo" name="memo" value="sdfghs" type="hidden">
+                <button type="submit" class="btn  btn-secondary ">Submit</button>
+            </form>
+            </div>
+        </div>
+    </body>
+     <script>
+ 
+    console.log(exportCosmosConfig)
+    
+     </script>
+</html>
