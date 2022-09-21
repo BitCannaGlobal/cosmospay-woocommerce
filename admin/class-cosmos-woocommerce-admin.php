@@ -6,8 +6,8 @@
  * @link       https://twitter.com/atmon3r
  * @since      1.0.0
  *
- * @package    Cosmos_Woocomerce
- * @subpackage Cosmos_Woocomerce/admin
+ * @package    Cosmos_Woocommerce
+ * @subpackage Cosmos_Woocommerce/admin
  */
 
 /**
@@ -16,11 +16,11 @@
  * Defines the plugin name, version, and two examples hooks for how to
  * enqueue the admin-specific stylesheet and JavaScript.
  *
- * @package    Cosmos_Woocomerce
- * @subpackage Cosmos_Woocomerce/admin
+ * @package    Cosmos_Woocommerce
+ * @subpackage Cosmos_Woocommerce/admin
  * @author     atmon3r <contact.atmoner@gmail.com>
  */
-class Cosmos_Woocomerce_Admin {
+class Cosmos_Woocommerce_Admin {
 
 	/**
 	 * The ID of this plugin.
@@ -73,7 +73,7 @@ class Cosmos_Woocomerce_Admin {
 		 * class.
 		 */
 
-		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/cosmos-woocomerce-admin.css', array(), $this->version, 'all' );
+		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/cosmos-woocommerce-admin.css', array(), $this->version, 'all' );
 
 	}
 
@@ -96,7 +96,7 @@ class Cosmos_Woocomerce_Admin {
 		 * class.
 		 */
 
-		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/cosmos-woocomerce-admin.js', array( 'jquery' ), $this->version, false );
+		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/cosmos-woocommerce-admin.js', array( 'jquery' ), $this->version, false );
 
 	}
 
@@ -142,7 +142,7 @@ class Cosmos_Woocomerce_Admin {
     }	
     function prefix_append_support_and_faq_links( $links_array, $plugin_file_name, $plugin_data, $status ) {
         $configDisclaimer = get_option( "cosmos_pay_disclaimer_approved" );
-        if ( $plugin_file_name === $this->plugin_name . '/cosmos-woocomerce.php' ) { 
+        if ( $plugin_file_name === $this->plugin_name . '/cosmos-woocommerce.php' ) { 
             $links_array[] = '<a href="#">FAQ</a>';
             $links_array[] = '<a href="#">Support</a>';
             if ( $configDisclaimer === 'false' ) {

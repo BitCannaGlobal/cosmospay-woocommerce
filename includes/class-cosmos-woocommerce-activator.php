@@ -6,8 +6,8 @@
  * @link       https://twitter.com/atmon3r
  * @since      1.0.0
  *
- * @package    Cosmos_Woocomerce
- * @subpackage Cosmos_Woocomerce/includes
+ * @package    Cosmos_Woocommerce
+ * @subpackage Cosmos_Woocommerce/includes
  */
 
 /**
@@ -16,11 +16,11 @@
  * This class defines all code necessary to run during the plugin's activation.
  *
  * @since      1.0.0
- * @package    Cosmos_Woocomerce
- * @subpackage Cosmos_Woocomerce/includes
+ * @package    Cosmos_Woocommerce
+ * @subpackage Cosmos_Woocommerce/includes
  * @author     atmon3r <contact.atmoner@gmail.com>
  */
-class Cosmos_Woocomerce_Activator {
+class Cosmos_Woocommerce_Activator {
 
 	/**
 	 * Short Description. (use period)
@@ -32,7 +32,7 @@ class Cosmos_Woocomerce_Activator {
 	public static function activate() {
     global $wpdb;
     add_option( 'cosmos_pay_disclaimer_approved', 'false', '', 'yes' );
-    // wp_redirect(admin_url('admin.php?page=cosmos-woocomerce-settings'));
+    // wp_redirect(admin_url('admin.php?page=cosmos-woocommerce-settings'));
     
     if ( null === $wpdb->get_row( "SELECT post_name FROM {$wpdb->prefix}posts WHERE post_name = 'api-cosmos'", 'ARRAY_A' ) ) {
       // Create post object

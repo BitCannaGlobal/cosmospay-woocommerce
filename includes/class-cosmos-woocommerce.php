@@ -9,8 +9,8 @@
  * @link       https://twitter.com/atmon3r
  * @since      1.0.0
  *
- * @package    Cosmos_Woocomerce
- * @subpackage Cosmos_Woocomerce/includes
+ * @package    Cosmos_Woocommerce
+ * @subpackage Cosmos_Woocommerce/includes
  */
 
 /**
@@ -23,11 +23,11 @@
  * version of the plugin.
  *
  * @since      1.0.0
- * @package    Cosmos_Woocomerce
- * @subpackage Cosmos_Woocomerce/includes
+ * @package    Cosmos_Woocommerce
+ * @subpackage Cosmos_Woocommerce/includes
  * @author     atmon3r <contact.atmoner@gmail.com>
  */
-class Cosmos_Woocomerce {
+class Cosmos_Woocommerce {
 
 	/**
 	 * The loader that's responsible for maintaining and registering all hooks that power
@@ -35,7 +35,7 @@ class Cosmos_Woocomerce {
 	 *
 	 * @since    1.0.0
 	 * @access   protected
-	 * @var      Cosmos_Woocomerce_Loader    $loader    Maintains and registers all hooks for the plugin.
+	 * @var      Cosmos_Woocommerce_Loader    $loader    Maintains and registers all hooks for the plugin.
 	 */
 	protected $loader;
 
@@ -67,8 +67,8 @@ class Cosmos_Woocomerce {
 	 * @since    1.0.0
 	 */
 	public function __construct() {
-		if ( defined( 'COSMOS_WOOCOMERCE_VERSION' ) ) {
-			$this->version = COSMOS_WOOCOMERCE_VERSION;
+		if ( defined( 'COSMOS_WOOCOMMERCE_VERSION' ) ) {
+			$this->version = COSMOS_WOOCOMMERCE_VERSION;
 		} else {
 			$this->version = '1.0.0';
 		}
@@ -86,10 +86,10 @@ class Cosmos_Woocomerce {
 	 *
 	 * Include the following files that make up the plugin:
 	 *
-	 * - Cosmos_Woocomerce_Loader. Orchestrates the hooks of the plugin.
-	 * - Cosmos_Woocomerce_i18n. Defines internationalization functionality.
-	 * - Cosmos_Woocomerce_Admin. Defines all hooks for the admin area.
-	 * - Cosmos_Woocomerce_Public. Defines all hooks for the public side of the site.
+	 * - Cosmos_Woocommerce_Loader. Orchestrates the hooks of the plugin.
+	 * - Cosmos_Woocommerce_i18n. Defines internationalization functionality.
+	 * - Cosmos_Woocommerce_Admin. Defines all hooks for the admin area.
+	 * - Cosmos_Woocommerce_Public. Defines all hooks for the public side of the site.
 	 *
 	 * Create an instance of the loader which will be used to register the hooks
 	 * with WordPress.
@@ -103,26 +103,26 @@ class Cosmos_Woocomerce {
 		 * The class responsible for orchestrating the actions and filters of the
 		 * core plugin.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-cosmos-woocomerce-loader.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-cosmos-woocommerce-loader.php';
 
 		/**
 		 * The class responsible for defining internationalization functionality
 		 * of the plugin.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-cosmos-woocomerce-i18n.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-cosmos-woocommerce-i18n.php';
 
 		/**
 		 * The class responsible for defining all actions that occur in the admin area.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-cosmos-woocomerce-admin.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-cosmos-woocommerce-admin.php';
 
 		/**
 		 * The class responsible for defining all actions that occur in the public-facing
 		 * side of the site.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-cosmos-woocomerce-public.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-cosmos-woocommerce-public.php';
 
-		$this->loader = new Cosmos_Woocomerce_Loader();
+		$this->loader = new Cosmos_Woocommerce_Loader();
 
 	}
 
@@ -137,7 +137,7 @@ class Cosmos_Woocomerce {
 	 */
 	private function set_locale() {
 
-		$plugin_i18n = new Cosmos_Woocomerce_i18n();
+		$plugin_i18n = new Cosmos_Woocommerce_i18n();
 
 		$this->loader->add_action( 'plugins_loaded', $plugin_i18n, 'load_plugin_textdomain' );
 
@@ -153,7 +153,7 @@ class Cosmos_Woocomerce {
 	 */
 	private function define_admin_hooks() {
 
-		$plugin_admin = new Cosmos_Woocomerce_Admin( $this->get_plugin_name(), $this->get_version() );
+		$plugin_admin = new Cosmos_Woocommerce_Admin( $this->get_plugin_name(), $this->get_version() );
 
     $this->loader->add_filter( 'plugin_row_meta', $plugin_admin, 'prefix_append_support_and_faq_links', 10, 4 );
 		$this->loader->add_filter( 'woocommerce_payment_gateways', $plugin_admin, 'add_cosmos_gateway_class' );
@@ -173,7 +173,7 @@ class Cosmos_Woocomerce {
 	 */
 	private function define_public_hooks() {
 
-		$plugin_public = new Cosmos_Woocomerce_Public( $this->get_plugin_name(), $this->get_version() );
+		$plugin_public = new Cosmos_Woocommerce_Public( $this->get_plugin_name(), $this->get_version() );
 
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );

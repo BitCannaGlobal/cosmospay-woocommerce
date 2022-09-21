@@ -6,8 +6,8 @@
  * @link       https://twitter.com/atmon3r
  * @since      1.0.0
  *
- * @package    Cosmos_Woocomerce
- * @subpackage Cosmos_Woocomerce/public
+ * @package    Cosmos_Woocommerce
+ * @subpackage Cosmos_Woocommerce/public
  */
 
 /**
@@ -16,11 +16,11 @@
  * Defines the plugin name, version, and two examples hooks for how to
  * enqueue the public-facing stylesheet and JavaScript.
  *
- * @package    Cosmos_Woocomerce
- * @subpackage Cosmos_Woocomerce/public
+ * @package    Cosmos_Woocommerce
+ * @subpackage Cosmos_Woocommerce/public
  * @author     atmon3r <contact.atmoner@gmail.com>
  */
-class Cosmos_Woocomerce_Public {
+class Cosmos_Woocommerce_Public {
 
 	/**
 	 * The ID of this plugin.
@@ -73,7 +73,7 @@ class Cosmos_Woocomerce_Public {
 		 * class.
 		 */
 
-		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/cosmos-woocomerce-public.css', array(), $this->version, 'all' );
+		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/cosmos-woocommerce-public.css', array(), $this->version, 'all' );
 
 	}
 

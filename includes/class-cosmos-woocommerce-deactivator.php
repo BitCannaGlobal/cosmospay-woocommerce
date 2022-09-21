@@ -6,8 +6,8 @@
  * @link       https://twitter.com/atmon3r
  * @since      1.0.0
  *
- * @package    Cosmos_Woocomerce
- * @subpackage Cosmos_Woocomerce/includes
+ * @package    Cosmos_Woocommerce
+ * @subpackage Cosmos_Woocommerce/includes
  */
 
 /**
@@ -16,11 +16,11 @@
  * This class defines all code necessary to run during the plugin's deactivation.
  *
  * @since      1.0.0
- * @package    Cosmos_Woocomerce
- * @subpackage Cosmos_Woocomerce/includes
+ * @package    Cosmos_Woocommerce
+ * @subpackage Cosmos_Woocommerce/includes
  * @author     atmon3r <contact.atmoner@gmail.com>
  */
-class Cosmos_Woocomerce_Deactivator {
+class Cosmos_Woocommerce_Deactivator {
 
 	/**
 	 * Short Description. (use period)

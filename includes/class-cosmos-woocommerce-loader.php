@@ -6,8 +6,8 @@
  * @link       https://twitter.com/atmon3r
  * @since      1.0.0
  *
- * @package    Cosmos_Woocomerce
- * @subpackage Cosmos_Woocomerce/includes
+ * @package    Cosmos_Woocommerce
+ * @subpackage Cosmos_Woocommerce/includes
  */
 
 /**
@@ -17,11 +17,11 @@
  * the plugin, and register them with the WordPress API. Call the
  * run function to execute the list of actions and filters.
  *
- * @package    Cosmos_Woocomerce
- * @subpackage Cosmos_Woocomerce/includes
+ * @package    Cosmos_Woocommerce
+ * @subpackage Cosmos_Woocommerce/includes
  * @author     atmon3r <contact.atmoner@gmail.com>
  */
-class Cosmos_Woocomerce_Loader {
+class Cosmos_Woocommerce_Loader {
 
 	/**
 	 * The array of actions registered with WordPress.

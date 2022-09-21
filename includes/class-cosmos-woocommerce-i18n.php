@@ -9,7 +9,7 @@
  * @link       https://twitter.com/atmon3r
  * @since      1.0.0
  *
- * @package    Cosmos_Woocomerce
+ * @package    Cosmos_Woocommerce
  * @subpackage Cosmos_Woocomerce/includes
  */
 
@@ -20,11 +20,11 @@
  * so that it is ready for translation.
  *
  * @since      1.0.0
- * @package    Cosmos_Woocomerce
- * @subpackage Cosmos_Woocomerce/includes
+ * @package    Cosmos_Woocommerce
+ * @subpackage Cosmos_Woocommerce/includes
  * @author     atmon3r <contact.atmoner@gmail.com>
  */
-class Cosmos_Woocomerce_i18n {
+class Cosmos_Woocommerce_i18n {
 
 
 	/**
@@ -35,7 +35,7 @@ class Cosmos_Woocomerce_i18n {
 	public function load_plugin_textdomain() {
 
 		load_plugin_textdomain(
-			'cosmos-woocomerce',
+			'cosmos-woocommerce',
 			false,
 			dirname( dirname( plugin_basename( __FILE__ ) ) ) . '/languages/'
 		);
