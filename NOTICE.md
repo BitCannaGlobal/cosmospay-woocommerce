@@ -1,4 +1,4 @@
-We used the npm packages 
+We used the npm packages:
  * https://www.npmjs.com/package/@cosmjs/proto-signing
  * https://www.npmjs.com/package/@cosmjs/stargate
 
