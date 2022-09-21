@@ -1,6 +1,6 @@
 # Cosmos Pay
 
-Contributors: bitcanna
+Contributors: BitCanna
 Donate link: https://twitter.com/bitcannaglobal
 Tags: payments, cryptocurrency, blockchain
 Requires at least: 3.0.1
@@ -44,7 +44,7 @@ Requirements:
 
 ### Setting up the Plugin
 
-1. Now head back over to Wordpress and click `"Woocommerce"` in the left-hand menu, and then head to `"Settings"`. Head over to the `"Payments"` tab and locate `"Cosmos payments"` and click `"Manage"`.
+1. Now head back over to Wordpress and click `"WooCommerce"` in the left-hand menu, and then head to `"Settings"`. Head over to the `"Payments"` tab and locate `"Cosmos payments"` and click `"Manage"`.
 2. On this page you can add a description, and choose the available cryptocurrencies to accept on your store. Don’t forget to click `"Save changes"` after you’re done editing.
 3. Next up, click `"Cosmos Pay"` in the left-hand menu, and fill out your password to edit the settings.
 4. Click `"Connect BitCanna"` (or up to as many blockchains you’d like to accept as currency) and approve the Keplr pop-ups to add the blockchain to Keplr, and to allow Wordpress to interact with your Keplr wallet. Your BitCanna address should be automatically filled out (or other addresses, depending which chains you connect). Don’t forget to click `"Save Changes"`!
