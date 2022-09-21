@@ -5,11 +5,11 @@
  *
  * This file is used to markup the public-facing aspects of the plugin.
  *
- * @link       https://twitter.com/atmon3r
+ * @link       https://twitter.com/BitCannaGlobal
  * @since      1.0.0
  *
- * @package    Cosmos_Woocomerce
- * @subpackage Cosmos_Woocomerce/public/partials
+ * @package    Cosmos_Woocommerce
+ * @subpackage Cosmos_Woocommerce/public/partials
  */
 ?>
 

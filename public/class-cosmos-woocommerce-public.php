@@ -3,7 +3,7 @@
 /**
  * The public-facing functionality of the plugin.
  *
- * @link       https://twitter.com/atmon3r
+ * @link       https://twitter.com/BitCannaGlobal
  * @since      1.0.0
  *
  * @package    Cosmos_Woocommerce
@@ -18,7 +18,7 @@
  *
  * @package    Cosmos_Woocommerce
  * @subpackage Cosmos_Woocommerce/public
- * @author     atmon3r <contact.atmoner@gmail.com>
+ * @author     BitCanna <dev@bitcanna.io>
  */
 class Cosmos_Woocommerce_Public {
 
@@ -65,10 +65,10 @@ class Cosmos_Woocommerce_Public {
 		 * This function is provided for demonstration purposes only.
 		 *
 		 * An instance of this class should be passed to the run() function
-		 * defined in Cosmos_Woocomerce_Loader as all of the hooks are defined
+		 * defined in Cosmos_Woocommerce_Loader as all of the hooks are defined
 		 * in that particular class.
 		 *
-		 * The Cosmos_Woocomerce_Loader will then create the relationship
+		 * The Cosmos_Woocommerce_Loader will then create the relationship
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
@@ -88,10 +88,10 @@ class Cosmos_Woocommerce_Public {
 		 * This function is provided for demonstration purposes only.
 		 *
 		 * An instance of this class should be passed to the run() function
-		 * defined in Cosmos_Woocomerce_Loader as all of the hooks are defined
+		 * defined in Cosmos_Woocommerce_Loader as all of the hooks are defined
 		 * in that particular class.
 		 *
-		 * The Cosmos_Woocomerce_Loader will then create the relationship
+		 * The Cosmos_Woocommerce_Loader will then create the relationship
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
@@ -152,9 +152,9 @@ class Cosmos_Woocommerce_Public {
       $order_status  = $order->get_status( );  
 
       if ( $order_status !== 'cancelled' ) {
-        include plugin_dir_path(__FILE__) . "partials/cosmos-payement-tpl.php";
+        include plugin_dir_path(__FILE__) . "partials/cosmos-payment-tpl.php";
       } else
-        include plugin_dir_path(__FILE__) . "partials/cosmos-payement-cancel-tpl.php";
+        include plugin_dir_path(__FILE__) . "partials/cosmos-payment-cancel-tpl.php";
     }
   }
 	/**

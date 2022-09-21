@@ -6,7 +6,7 @@
  * A class definition that includes attributes and functions used across both the
  * public-facing side of the site and the admin area.
  *
- * @link       https://twitter.com/atmon3r
+ * @link       https://twitter.com/BitCannaGlobal
  * @since      1.0.0
  *
  * @package    Cosmos_Woocommerce
@@ -25,7 +25,7 @@
  * @since      1.0.0
  * @package    Cosmos_Woocommerce
  * @subpackage Cosmos_Woocommerce/includes
- * @author     atmon3r <contact.atmoner@gmail.com>
+ * @author     BitCanna <dev@bitcanna.io>
  */
 class Cosmos_Woocommerce {
 
@@ -129,7 +129,7 @@ class Cosmos_Woocommerce {
 	/**
 	 * Define the locale for this plugin for internationalization.
 	 *
-	 * Uses the Cosmos_Woocomerce_i18n class in order to set the domain and to register the hook
+	 * Uses the Cosmos_Woocommerce_i18n class in order to set the domain and to register the hook
 	 * with WordPress.
 	 *
 	 * @since    1.0.0
@@ -205,7 +205,7 @@ class Cosmos_Woocommerce {
 	 * The reference to the class that orchestrates the hooks with the plugin.
 	 *
 	 * @since     1.0.0
-	 * @return    Cosmos_Woocomerce_Loader    Orchestrates the hooks of the plugin.
+	 * @return    Cosmos_Woocommerce_Loader    Orchestrates the hooks of the plugin.
 	 */
 	public function get_loader() {
 		return $this->loader;

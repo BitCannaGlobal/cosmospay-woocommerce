@@ -7,7 +7,7 @@
     "dev": "webpack-dev-server"
   },
   "keywords": [],
-  "author": "atmon3r",
+  "author": "BitCanna",
   "license": "ISC",
   "devDependencies": {
     "html-webpack-plugin": "^4.3.0",

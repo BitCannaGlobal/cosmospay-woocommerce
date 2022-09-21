@@ -3,7 +3,7 @@
 /**
  * Register all actions and filters for the plugin
  *
- * @link       https://twitter.com/atmon3r
+ * @link       https://twitter.com/BitCannaGlobal
  * @since      1.0.0
  *
  * @package    Cosmos_Woocommerce
@@ -19,7 +19,7 @@
  *
  * @package    Cosmos_Woocommerce
  * @subpackage Cosmos_Woocommerce/includes
- * @author     atmon3r <contact.atmoner@gmail.com>
+ * @author     BitCanna <dev@bitcanna.io>
  */
 class Cosmos_Woocommerce_Loader {
 

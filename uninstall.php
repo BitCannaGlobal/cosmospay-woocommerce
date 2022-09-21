@@ -19,10 +19,10 @@
  * For more information, see the following discussion:
  * https://github.com/tommcfarlin/WordPress-Plugin-Boilerplate/pull/123#issuecomment-28541913
  *
- * @link       https://twitter.com/atmon3r
+ * @link       https://twitter.com/BitCannaGlobal
  * @since      1.0.0
  *
- * @package    Cosmos_Woocomerce
+ * @package    Cosmos_Woocommerce
  */
 
 // If uninstall not called from WordPress, then exit.

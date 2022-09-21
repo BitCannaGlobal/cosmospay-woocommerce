@@ -6,7 +6,7 @@
  * Loads and defines the internationalization files for this plugin
  * so that it is ready for translation.
  *
- * @link       https://twitter.com/atmon3r
+ * @link       https://twitter.com/BitCannaGlobal
  * @since      1.0.0
  *
  * @package    Cosmos_Woocommerce
@@ -22,7 +22,7 @@
  * @since      1.0.0
  * @package    Cosmos_Woocommerce
  * @subpackage Cosmos_Woocommerce/includes
- * @author     atmon3r <contact.atmoner@gmail.com>
+ * @author     BitCanna <dev@bitcanna.io>
  */
 class Cosmos_Woocommerce_i18n {
 
