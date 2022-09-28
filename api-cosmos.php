@@ -155,8 +155,8 @@ if (isset($_GET['tx_hash']) && isset($_GET['order_id'])) {
   wc_update_order_item_meta( $orderId, '_cosmos_method', sanitize_text_field( $_POST['switchMethod'] ) );
   echo 'Update';
   
-} elseif (isset($_GET['finalData']) && isset($_GET['order_id'])) {
-  $orderId = sanitize_text_field( $_GET['order_id'] );
+} elseif (isset($_POST['finalData']) && isset($_POST['order_id'])) {
+  $orderId = sanitize_text_field( $_POST['order_id'] );
   
   wc_update_order_item_meta($orderId, '_cosmos_blocked', esc_attr('true'));
   $getChainPay = wc_get_order_item_meta( $orderId , '_cosmos_chain_pay', true ); 

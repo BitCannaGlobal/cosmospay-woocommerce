@@ -1,4 +1,4 @@
-function startChecking( order_id, mainDomain, memo, isBlocked, nonceSelectChain, nonceDeleteOrder, nonceSwitchMethod ) {
+function startChecking( order_id, mainDomain, finalApiUrl, memo, isBlocked, nonceSelectChain, nonceDeleteOrder, nonceSwitchMethod ) {
 
   $('.woocommerce-thankyou-order-received').hide()
   $('.woocommerce-order-details').hide()
@@ -10,7 +10,7 @@ function startChecking( order_id, mainDomain, memo, isBlocked, nonceSelectChain,
   $( '#mainTransaction' ).hide() 
   
   if ( isBlocked === 'true' ) {    
-    $.getJSON( mainDomain+"/api-cosmos/?order_id="+order_id+"&finalData", async function ( result ) {    
+    $.post( finalApiUrl, { order_id: order_id, finalData: 'finalData' }, async function ( result ) {    
       let foundChain = await exportCosmosConfig.initConfig.find( element => element.name === result.current_chain )
       $( '#finalAmount2, #finalAmount3' ).html( result.OrderPrice + ' ' + foundChain.coinLookup.viewDenom )  
       $( '#chainIcon2, #chainIcon3' ).attr( 'src', foundChain.coinLookup.icon )
@@ -32,7 +32,9 @@ function startChecking( order_id, mainDomain, memo, isBlocked, nonceSelectChain,
     }) 
   } else {
     $('#mainTransaction').show();
-    $.post( mainDomain+"/api-cosmos/", { switch: 'BitCanna', order_id: order_id, nonce: nonceSelectChain }, async function( result ) {
+    // https://store-wp.walaxy.io/index.php?name=api-cosmos
+    // $.post( mainDomain+"/api-cosmos/", { switch: 'BitCanna', order_id: order_id, nonce: nonceSelectChain }, async function( result ) {
+    $.post( finalApiUrl, { switch: 'BitCanna', order_id: order_id, nonce: nonceSelectChain }, async function( result ) {
       let foundChain = await exportCosmosConfig.initConfig.find( element => element.name === 'BitCanna' );
       $( "#returnChain" ).html( result.current_chain )
       $( "#returnLcd" ).html( result.lcd )
@@ -45,7 +47,7 @@ function startChecking( order_id, mainDomain, memo, isBlocked, nonceSelectChain,
       timerOrder( result.startTime )
     });  
     
-    $.post( mainDomain+"/api-cosmos/", { switchMethod: 'keplr', order_id: order_id, nonce: nonceSwitchMethod  }, function( result ) {
+    $.post( finalApiUrl, { switchMethod: 'keplr', order_id: order_id, nonce: nonceSwitchMethod  }, function( result ) {
       // console.log(result);
     });      
   }
@@ -53,7 +55,7 @@ function startChecking( order_id, mainDomain, memo, isBlocked, nonceSelectChain,
   
   $( '#sendStep2' ).click(function () {
       $( '#mainTransaction' ).hide()
-      $.getJSON( mainDomain+"/api-cosmos/?order_id=" + order_id + "&finalData", async function ( result ) {    
+      $.post( finalApiUrl, { order_id: order_id, finalData: 'finalData' }, async function ( result ) {    
         let foundChain = exportCosmosConfig.initConfig.find( element => element.name === result.current_chain )
         $( '#finalAmount2, #finalAmount3' ).html( result.OrderPrice + ' ' + foundChain.coinLookup.viewDenom )
         $( '#chainIcon2, #chainIcon3' ).attr('src', foundChain.coinLookup.icon)
@@ -80,7 +82,7 @@ function startChecking( order_id, mainDomain, memo, isBlocked, nonceSelectChain,
     $( "#spinner" ).show()
     $( "#cancelTx" ).hide()
     
-    $.getJSON( mainDomain+"/api-cosmos/?order_id="+order_id+"&finalData", async function ( result ) {    
+    $.post( finalApiUrl, { order_id: order_id, finalData: 'finalData' }, async function ( result ) {    
       let foundChain = exportCosmosConfig.initConfig.find( element => element.name === result.current_chain )
       
       keplrData = await exportCosmosConfig.initKeplr.addKeplrChain( result.current_chain )
@@ -91,7 +93,7 @@ function startChecking( order_id, mainDomain, memo, isBlocked, nonceSelectChain,
   $( '#selectChain' ).change( function() {
 
       let foundChain = exportCosmosConfig.initConfig.find( element => element.name === $(this).val() )    
-      $.post( mainDomain+"/api-cosmos/", { switch: $(this).val(), order_id: order_id, nonce: nonceSelectChain }, function( result ) {
+      $.post( finalApiUrl, { switch: $(this).val(), order_id: order_id, nonce: nonceSelectChain }, function( result ) {
         $( "#returnChain" ).html( result.current_chain )
         $( "#returnLcd" ).html( result.lcd )
         $( "#finalAmount" ).html( result.OrderPrice + ' ' + result.chainDenom )
@@ -104,12 +106,12 @@ function startChecking( order_id, mainDomain, memo, isBlocked, nonceSelectChain,
   });
 
   $( '#selectMethod' ).change( function() {
-      $.post( mainDomain+"/api-cosmos/", { switchMethod: $(this).val(), order_id: order_id, nonce: nonceSwitchMethod }, function( result ) {
+      $.post( finalApiUrl, { switchMethod: $(this).val(), order_id: order_id, nonce: nonceSwitchMethod }, function( result ) {
       })  
   });
  
   $( '#cancel, #cancel2' ).click( function () { 
-    $.post( mainDomain + "/api-cosmos/", { order_id: order_id, cancel: 'true', nonce: nonceDeleteOrder }, function( result ) {
+    $.post( finalApiUrl, { order_id: order_id, cancel: 'true', nonce: nonceDeleteOrder }, function( result ) {
       window.location.reload()
     })  
   }) 
@@ -143,7 +145,7 @@ function startChecking( order_id, mainDomain, memo, isBlocked, nonceSelectChain,
         
         minutesValue.innerHTML = '00'
         secondsValue.innerHTML = '00'
-        $.post( mainDomain + "/api-cosmos/", { order_id: order_id, cancel: 'true', nonce: nonceDeleteOrder }, function( result ){
+        $.post( finalApiUrl, { order_id: order_id, cancel: 'true', nonce: nonceDeleteOrder }, function( result ){
           // console.log(result)
           window.location.reload()
         })        

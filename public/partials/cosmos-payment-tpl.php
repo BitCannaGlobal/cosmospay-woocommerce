@@ -2,7 +2,16 @@
   $permalinkApi = get_permalink( get_option("cosmos_api_post_id") );
   $dbMemo = wc_get_order_item_meta( $order_id , '_cosmos_memo', true );
   $isBlocked = wc_get_order_item_meta( $order_id , '_cosmos_blocked', true );
+  
+  $rules = get_option( 'rewrite_rules' );
+  if (!empty($rules)) {
+    $finalApiUrl = get_home_url() . '/api-cosmos';
+  } else {
+    $cosmos_api_post_id = get_option( 'cosmos_api_post_id' );
+    $finalApiUrl = get_home_url() . '/?page_id=' . $cosmos_api_post_id;
+  }
 ?>
+
 
 <br /><br />
 <div class="cosmos-card" id="mainTransaction">
@@ -194,6 +203,7 @@ Time left: <b><span id="minutes"></span>:<span id="seconds"></span></b>
   jQuery( function( $ ){  
     var order_id = "<?php echo esc_attr( $order_id ) ?>";
     var mainDomain = "<?php echo esc_attr( get_home_url() ) ?>";
+    var finalApiUrl = "<?php echo esc_attr( $finalApiUrl ) ?>";
     var memo = "<?php echo esc_attr( $dbMemo ) ?>";
     var isBlocked = "<?php echo esc_attr( $isBlocked ) ?>";
     var nonceSelectChain = "<?php echo esc_attr( wp_create_nonce( 'cosmos_select_chain' ) ) ?>"
@@ -202,6 +212,7 @@ Time left: <b><span id="minutes"></span>:<span id="seconds"></span></b>
     startChecking( 
       order_id, 
       mainDomain, 
+      finalApiUrl,
       memo, 
       isBlocked, 
       nonceSelectChain, 
