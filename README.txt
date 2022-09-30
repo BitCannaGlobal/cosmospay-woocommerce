@@ -72,6 +72,8 @@ directory take precedence. For example, `/assets/screenshot-1.png` would win ove
 = 1.0.0 =
 * Initial release
 
-## Upgrade Notice 
+== Upgrade Notice ==
 
-soon
+= 1.0.1 =
+This version fixes a bug. Upgrade immediately.
+
