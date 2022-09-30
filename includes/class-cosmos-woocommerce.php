@@ -72,7 +72,7 @@ class Cosmos_Woocommerce {
 		} else {
 			$this->version = '1.0.0';
 		}
-		$this->plugin_name = 'cosmospay-woocommerce';
+		$this->plugin_name = 'cosmos-pay';
 
 		$this->load_dependencies();
 		$this->set_locale();
