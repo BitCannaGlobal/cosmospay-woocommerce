@@ -1,0 +1,20 @@
+name: New CosmosPay release
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  tag:
+    name: New release
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - name: Plugin Deploy
+        uses: Pierre-Lannoy/wordpress-actions/dotorg-plugin-deploy@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SLUG: cosmos-pay
+          NAME: cosmos-pay
+          SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
+          SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
