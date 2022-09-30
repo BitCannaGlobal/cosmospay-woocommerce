@@ -74,7 +74,7 @@
   top: 1%;
   width:300px;
   height:100px;
-  border: 1px solid #E2E2E2;
+  border: 2px solid #f3f3f3;
   border-radius: 5px;
   background: #FFFFFF 0% 0% no-repeat padding-box;
   margin: 0 auto;
@@ -157,6 +157,7 @@
 }
 
 .cosmos-card-title {
+      align-content: flex-end;
   height: 55%;
   display: flex;
   justify-content: center;
@@ -165,7 +166,7 @@
 }
 .cosmos-card-title h3 {
   color:#3C3C3C;
-  font-size: 2rem;
+  font-size: 5rem;
   font-weight: bolder;
 }
 .cosmos-card-title img {
@@ -301,6 +302,14 @@ svg {
   border: 2px solid red;
  
 } 
+.cancelTx {
+  border: none;
+  padding: 10px;
+  text-align: center;
+
+ 
+} 
+
 .loader {
   border: 16px solid #f3f3f3; /* Light grey */
   border-top: 16px solid green; /* Blue */

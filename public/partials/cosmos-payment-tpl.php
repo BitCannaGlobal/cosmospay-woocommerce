@@ -21,7 +21,7 @@
       <div class="cosmos-card-title">
         <img id="chainIcon" src="" width="25" height="25"> 
         <h5>
-          <div id="finalAmount"></div>
+          <b><div id="finalAmount"></div></b>
         </h5>
       </div>
       <div class="cosmos-card-amount">
@@ -30,7 +30,7 @@
       </div>
     </div>
     <div class="cosmos-content">
-      <p>Select your cryptocurrency:</p>
+      Select your cryptocurrency:
       <div class="box">
         <select id="selectChain">
           <?php             
@@ -44,17 +44,17 @@
           ?> 
         </select>
       </div>
-      <br /><br /><br />
-      <p>Select your prefered way to pay:</p>
+      <br /><br /><br /><br />
+      Select your prefered way to pay:
       <div class="box">
         <select id="selectMethod">
           <option value="keplr">Pay automatically with keplr</option>
           <option value="another">Another way</option>
         </select>
       </div>
-      <br /><br /><br />
+      <br /><br /><br /><br />
       <button class="buttonSend" id="sendStep2">Next</button>
-      <div align="center"><br />
+      <div class="cancelTx" align="center"> 
         <a href="" id="cancel" style="color: red;">Cancel</a>
       </div>
     </div>
@@ -89,15 +89,15 @@
         <h5>Keplr canceled</h5>
         <div id="keplrError" style="color: red;"></div><br />
         <button class="buttonRetry" id="retry">Retry</button> 
-        <div align="center"><br />
-          <a id="cancel2" style="color: red;">Cancel</a>
+        <div class="cancelTx" align="center"> 
+          <a id="cancel2" style="color: red;"><u>Cancel</u></a>
         </div>
       </div>
       <div id="AcceptedTx" align="center" style="display: none;">
         <img src="<?php echo plugins_url(); ?>/<?php echo esc_attr($this->plugin_name); ?>/public/img/accepted.png" width="75" height="75">
         <br /><br />
         <h5>Payment accepted</h5>
-        <a href="" id="finalUrlTx" target="_blank">View tx</a>
+        <a href="" id="finalUrlTx" target="_blank">View transaction</a>
       </div>
     </div>
   </div>
@@ -119,18 +119,22 @@
   <div class="d-flex justify-content-center">
     <div class="cosmos-content" id="manualFinal">
       <div id="phase1">
-        <p>Please send the <b>exact</b> same amount of coins to the following address 
+         Please send the <b>exact</b> same amount of coins to the following address 
         <div class="input-wrapper" id="copyRecep">
           <input type="text" id="recipient" name="recipient" value=""  aria-label="readonly input example" readonly>
         </div>
-        <span style="display: none; color: green;" style="copyAddress" id="copyAddress">Address copied</span>
-        </p>
+        <span style="display: none; color: green;" style="copyAddress" id="copyAddress">Address copied</span><br />
+         
         Add the following ID to the <b>MEMO</b> field in your transaction
         <div class="input-wrapper" id="copyMemo">
           <input value="" type="text" id="memo" name="memo" aria-label="readonly input example" readonly> 
         </div>
         <span style="display: none; color: green;" id="copyMemoMessage">Memo copied</span>
+        <br />
         <p>Make sure to send your transaction to the <b>correct address</b> with the <b>precise amount</b> and the <b>correct MEMO</b>. If you need help, contact customer support.</p>
+        <div class="cancelTx" align="center"> 
+          <a id="cancel2" style="color: red;"><u>Cancel</u></a>
+        </div>        
       </div>
       <div id="phase2" align="center" style="display: none;">
         <br />
@@ -141,9 +145,9 @@
       <div id="phase3" style="display: none;">
         <div id="AcceptedTx" align="center">
           <img src="<?php echo plugins_url(); ?>/<?php echo esc_attr($this->plugin_name); ?>/public/img/accepted.png" width="75" height="75">
-          <br /><br />
+          <br /> 
           <h5>Payment accepted</h5>
-          <a href="" id="finalUrlTx" target="_blank">View tx</a>
+          <a href="" id="finalUrlTx" target="_blank">View transaction</a>
         </div>
       </div>
       <div id="errorManual" style="display: none;">
