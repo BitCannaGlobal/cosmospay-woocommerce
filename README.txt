@@ -5,7 +5,7 @@ Donate link: https://twitter.com/bitcannaglobal
 Tags: payments, cryptocurrency, blockchain
 Requires at least: 3.0.1
 Tested up to: 6.0.2
-Stable tag: 1.0.1
+Stable tag: 1.0.2
 Requires PHP: 7.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -64,6 +64,9 @@ directory take precedence. For example, `/assets/screenshot-1.png` would win ove
 2. This is the second screen shot etc.
 
 == Changelog ==
+= 1.0.2 =
+* Fix some typo
+* Edit wordpress banner
 
 = 1.0.1 =
 * Fix plugin name
