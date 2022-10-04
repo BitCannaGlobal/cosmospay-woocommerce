@@ -71,14 +71,14 @@ if ($json_a === null) {
 	<div class="wrap" align="center">
 	
     <img src="<?php echo plugins_url(); ?>/<?php echo esc_attr($this->plugin_name); ?>/public/img/cosmos.png" width="160" height="120">
-		<h1>Cosmos-pay settings</h1>
+		<h1>Cosmos Pay settings</h1>
 	</div>
 	<br />
 <div class="card-cosmos">
 <?php if ($configDisclaimer === 'false') { ?>
         <div class="card-body"> 
           <div class="wrap">
-            <div align="center"><h2>Cosmos-pay Disclaimer</h2></div>
+            <div align="center"><h2>Cosmos Pay Disclaimer</h2></div>
             <form method="post" action="<?php echo get_admin_url(); ?>admin.php?page=<?php echo esc_attr($this->plugin_name); ?>-settings">
             <textarea id="story" name="story" rows="10" cols="86" disabled><?php 
               $file = file_get_contents('disclaimer.txt', true);
@@ -120,7 +120,7 @@ if ($json_a === null) {
                 
               </table>
               
-              <?php submit_button("Check admin"); ?>
+              <?php submit_button("Confirm"); ?>
 
           </form>
           </div>

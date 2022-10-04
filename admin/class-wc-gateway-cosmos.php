@@ -9,7 +9,7 @@ class WC_Gateway_Cosmos extends WC_Gateway_COD {
         $this->id                 = 'woo-cosmos';
         $this->icon               = apply_filters( 'woocommerce_coupon-on-deliver_icon', '' );
         $this->method_title       = __( 'Cosmos payment', 'woo-cosmos' );
-        $this->method_description = __( 'Have your customers pay with a cosmos wallet. Change address <a href="/wp-admin/admin.php?page=cosmos-pay-settings">here</a>', 'woo-cosmos' );
+        $this->method_description = __( 'You can change your receiving addresses <a href="/wp-admin/admin.php?page=cosmos-pay-settings">here</a>', 'woo-cosmos' );
         $this->has_fields         = false;
         // Load the settings.
         $this->init_form_fields();
@@ -87,7 +87,7 @@ class WC_Gateway_Cosmos extends WC_Gateway_COD {
           if ($chain['active'] === 'true') {
             $title = $chain['name'];
             $this->form_fields[$chain['name']] = array( 
-                  'title'       => __( 'Your adrress ' . $title, 'woo-cosmos' ),
+                  'title'       => __( 'Your ' . $title . ' address', 'woo-cosmos' ),
                   'type'        => 'text',
                   'description' => __( 'Cosmos wallets', 'woo-cosmos' ),
                   'default'     => __( '', 'woo-cosmos' ),
