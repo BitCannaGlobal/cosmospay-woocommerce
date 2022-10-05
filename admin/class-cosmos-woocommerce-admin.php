@@ -129,8 +129,8 @@ class Cosmos_Woocommerce_Admin {
     }   
     function cosmos_admin_menu() {
       add_menu_page( 
-        "Cosmos-pay", 
-        "Cosmos-pay", 
+        "Cosmos Pay", 
+        "Cosmos Pay", 
         'manage_options', 
         $this->plugin_name . '-settings', 
         array( $this, 'get_cosmos_settings' ), 

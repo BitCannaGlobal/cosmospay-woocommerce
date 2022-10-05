@@ -11,6 +11,7 @@
     $finalApiUrl = get_home_url() . '/?page_id=' . $cosmos_api_post_id;
   }
 ?>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
 
 <br /><br />
@@ -49,7 +50,7 @@
       <div class="box">
         <select id="selectMethod">
           <option value="keplr">Pay automatically with keplr</option>
-          <option value="another">Another way</option>
+          <option value="another">Pay with another wallet</option>
         </select>
       </div>
       <br /><br /><br /><br />
@@ -90,7 +91,7 @@
         <div id="keplrError" style="color: red;"></div><br />
         <button class="buttonRetry" id="retry">Retry</button> 
         <div class="cancelTx" align="center"> 
-          <a id="cancel2" style="color: red;"><u>Cancel</u></a>
+          <a href="" id="cancel2" style="color: red;"><u>Cancel</u></a>
         </div>
       </div>
       <div id="AcceptedTx" align="center" style="display: none;">
@@ -133,7 +134,7 @@
         <br />
         <p>Make sure to send your transaction to the <b>correct address</b> with the <b>precise amount</b> and the <b>correct MEMO</b>. If you need help, contact customer support.</p>
         <div class="cancelTx" align="center"> 
-          <a id="cancel2" style="color: red;"><u>Cancel</u></a>
+          <a href="" id="cancel2" style="color: red;"><u>Cancel</u></a>
         </div>        
       </div>
       <div id="phase2" align="center" style="display: none;">

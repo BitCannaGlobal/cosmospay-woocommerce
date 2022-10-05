@@ -49,37 +49,35 @@ class WC_Gateway_Cosmos extends WC_Gateway_COD {
         $this->form_fields = array(
             'enabled' => array(
                 'title'       => __( 'Enable/Disable', 'woo-cosmos' ),
-                'label'       => __( 'Enable cosmos payment', 'woo-cosmos' ),
+                'label'       => __( 'Enable Cosmos Pay', 'woo-cosmos' ),
                 'type'        => 'checkbox',
-                'description' => '',
+                'description' => 'Check this box to enable Cosmos Pay on the front-end of your website',
                 'default'     => 'no',
             ),
             'title' => array(
                 'title'       => __( 'Title', 'woo-cosmos' ),
                 'type'        => 'text',
-                'description' => __( 'Cosmos wallets', 'woo-cosmos' ),
-                'default'     => __( 'Cosmos walletss', 'woo-cosmos' ),
+                'description' => __( 'This is the title of the payment method that shows up in the list of payment methods to pay for the order.', 'woo-cosmos' ),
+                'default'     => __( 'Cosmos Pay', 'woo-cosmos' ),
                 'desc_tip'    => true,
+                'custom_attributes' => array('readonly' => 'readonly'),
             ),
             'description' => array(
                 'title'       => __( 'Description', 'woo-cosmos' ),
                 'type'        => 'textarea',
-                'description' => __( 'Payment method description that the customer will see on your website.', 'woo-cosmos' ),
-                'default'     => __( 'Pay with your wallets cosmos!', 'woo-cosmos' ),
+                'description' => __( 'This is the payment method description that the customer will see on your website.', 'woo-cosmos' ),
+                'default'     => __( 'Pay with your favourite cryptocurrency!', 'woo-cosmos' ),
                 'desc_tip'    => true,
             ), 
             'option_name' => array(
-                'title'             => __( 'Enable cosmos chains', 'woo-cosmos' ),
+                'title'             => __( 'Select your cryptocurrencies to accept', 'woo-cosmos' ),
                 'type'              => 'multiselect',
                 'class'             => 'wc-enhanced-select',
                 'css'               => 'width: 400px;',
                 'default'           => '',
-                'description'       => __( 'Select the cosmos chains that will be available for your customers.', 'woo-cosmos' ),
+                'description'       => __( 'Select the cryptocurrencies that will be available for your customers.', 'woo-cosmos' ),
                 'options'           => $shipping_methods,
-                'desc_tip'          => true,
-                'custom_attributes' => array(
-                    'data-placeholder' => __( 'Select chain accepted', 'woo-cosmos' ),
-                ),
+                'desc_tip'          => true
             ),         
        );
         // Add input part

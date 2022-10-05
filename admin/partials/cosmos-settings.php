@@ -149,7 +149,7 @@ if ($json_a === null) {
                     if ($chain['active'] === 'true') {
                     ?>
                       <tr valign="top">
-                      <th scope="row">Your address <?php echo esc_attr( $chain['name'] ); ?></th>
+                      <th scope="row">Your <?php echo esc_attr( $chain['name'] ); ?> address </th>
                       <td><input type="text" id="<?php echo esc_attr( $chain['name'] ); ?>" name="<?php echo esc_attr( $chain['name'] ); ?>" value="<?php echo esc_attr( $configCosmosAddr[$chain['name']] ); ?>" size="50" /></td>
                       <td>
                       <button id="target" value="<?php echo esc_attr( $chain['name'] ); ?>" name="get_chain" class="button button-primary" type="button">
