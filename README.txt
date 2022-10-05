@@ -1,7 +1,7 @@
 # Cosmos Pay
 
 Contributors: BitCanna
-Donate link: https://twitter.com/bitcannaglobal
+Donate link: https://commerce.bitcanna.io
 Tags: payments, cryptocurrency, blockchain
 Requires at least: 3.0.1
 Tested up to: 6.0.2
