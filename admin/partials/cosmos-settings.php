@@ -81,8 +81,9 @@ if ($json_a === null) {
             <div align="center"><h2>Cosmos Pay Disclaimer</h2></div>
             <form method="post" action="<?php echo get_admin_url(); ?>admin.php?page=<?php echo esc_attr($this->plugin_name); ?>-settings">
             <textarea id="story" name="story" rows="10" cols="86" disabled><?php 
-              $file = file_get_contents('disclaimer.txt', true);
-              echo esc_attr($file);
+              // $file = file_get_contents('disclaimer.txt', true);
+              $disclaimer = wp_remote_retrieve_body( wp_remote_get( 'https://store-api.bitcanna.io/disclaimer' ) );
+              echo esc_attr($disclaimer);
             ?>
             </textarea> 
             <br /><br />
@@ -148,7 +149,7 @@ if ($json_a === null) {
                     if ($chain['active'] === 'true') {
                     ?>
                       <tr valign="top">
-                      <th scope="row">Your adrress <?php echo esc_attr( $chain['name'] ); ?></th>
+                      <th scope="row">Your address <?php echo esc_attr( $chain['name'] ); ?></th>
                       <td><input type="text" id="<?php echo esc_attr( $chain['name'] ); ?>" name="<?php echo esc_attr( $chain['name'] ); ?>" value="<?php echo esc_attr( $configCosmosAddr[$chain['name']] ); ?>" size="50" /></td>
                       <td>
                       <button id="target" value="<?php echo esc_attr( $chain['name'] ); ?>" name="get_chain" class="button button-primary" type="button">
