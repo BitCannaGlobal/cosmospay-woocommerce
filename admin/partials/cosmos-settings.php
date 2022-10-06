@@ -71,18 +71,19 @@ if ($json_a === null) {
 	<div class="wrap" align="center">
 	
     <img src="<?php echo plugins_url(); ?>/<?php echo esc_attr($this->plugin_name); ?>/public/img/cosmos.png" width="160" height="120">
-		<h1>Cosmos-pay settings</h1>
+		<h1>Cosmos Pay settings</h1>
 	</div>
 	<br />
 <div class="card-cosmos">
 <?php if ($configDisclaimer === 'false') { ?>
         <div class="card-body"> 
           <div class="wrap">
-            <div align="center"><h2>Cosmos-pay Disclaimer</h2></div>
+            <div align="center"><h2>Cosmos Pay Disclaimer</h2></div>
             <form method="post" action="<?php echo get_admin_url(); ?>admin.php?page=<?php echo esc_attr($this->plugin_name); ?>-settings">
             <textarea id="story" name="story" rows="10" cols="86" disabled><?php 
-              $file = file_get_contents('disclaimer.txt', true);
-              echo esc_attr($file);
+              // $file = file_get_contents('disclaimer.txt', true);
+              $disclaimer = wp_remote_retrieve_body( wp_remote_get( 'https://store-api.bitcanna.io/disclaimer' ) );
+              echo esc_attr($disclaimer);
             ?>
             </textarea> 
             <br /><br />
@@ -120,7 +121,7 @@ if ($json_a === null) {
                 
               </table>
               
-              <?php submit_button("Check admin"); ?>
+              <?php submit_button("Confirm"); ?>
 
           </form>
           </div>
@@ -148,7 +149,7 @@ if ($json_a === null) {
                     if ($chain['active'] === 'true') {
                     ?>
                       <tr valign="top">
-                      <th scope="row">Your adrress <?php echo esc_attr( $chain['name'] ); ?></th>
+                      <th scope="row">Your <?php echo esc_attr( $chain['name'] ); ?> address </th>
                       <td><input type="text" id="<?php echo esc_attr( $chain['name'] ); ?>" name="<?php echo esc_attr( $chain['name'] ); ?>" value="<?php echo esc_attr( $configCosmosAddr[$chain['name']] ); ?>" size="50" /></td>
                       <td>
                       <button id="target" value="<?php echo esc_attr( $chain['name'] ); ?>" name="get_chain" class="button button-primary" type="button">
