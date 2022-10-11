@@ -16,7 +16,7 @@
  * Plugin Name:       Cosmos Pay
  * Plugin URI:        https://twitter.com/bitcannaglobal
  * Description:       Easily accept cryptocurrency payments on your WordPress site. Enable multiple currencies from the interconnected Cosmos ecosystem.
- * Version:           1.0.2
+ * Version:           1.0.3
  * Author:            BitCanna
  * Author URI:        https://twitter.com/bitcannaglobal
  * License:           GPL-2.0+
@@ -35,7 +35,7 @@ if ( ! defined( 'WPINC' ) ) {
  * Start at version 1.0.0 and use SemVer - https://semver.org
  * Rename this for your plugin and update it as you release new versions.
  */
-define( 'COSMOS_WOOCOMMERCE_VERSION', '1.0.2' );
+define( 'COSMOS_WOOCOMMERCE_VERSION', '1.0.3' );
 
 
 
