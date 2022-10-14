@@ -3,10 +3,6 @@ header('Content-Type: application/json');
 
 $wc_cosmos_options = get_option( 'woocommerce_woo-cosmos_settings'); 
 
-if ( ! is_user_logged_in() ) {
-  wp_die( 'Must be logged', 'Error' );
-} 
-
 if ( isset( $_GET['order_id'] ) OR isset( $_POST['order_id'] ) ) {
   $order = wc_get_order( $_REQUEST['order_id'] );
   $userWp = wp_get_current_user( );
