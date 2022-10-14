@@ -111,16 +111,6 @@ class Cosmos_Woocommerce_Public {
     $userWp = wp_get_current_user( );
     $userWoo = $order->user_id;
     $orderData = $order->get_data( ); 
-      
-    if ( ! is_user_logged_in() ) {
-      wp_redirect( get_site_url(), 301 ); 
-      exit;
-    }    
-    if ( $order->user_id !== $userWp->ID ) {
-      wp_redirect( get_site_url( ), 301 );
-      exit; 
-    }      
-    //because I already have the ID from the hook I am using.
         
     $getMemo = wc_get_order_item_meta( $order_id , '_cosmos_memo', true ); 
   
