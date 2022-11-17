@@ -45,7 +45,7 @@
           ?> 
         </select>
       </div>
-      <br /><br /><br /><br />
+      <br /><br />
       Select your prefered way to pay:
       <div class="box">
         <select id="selectMethod">
@@ -53,10 +53,10 @@
           <option value="another">Pay with another wallet</option>
         </select>
       </div>
-      <br /><br /><br /><br />
+      <br /><br />
       <button class="buttonSend" id="sendStep2">Next</button>
       <div class="cancelTx" align="center"> 
-        <a href="" id="cancel" style="color: red;">Cancel</a>
+        <a href="" id="cancel" style="color: red;"><u>Cancel</u></a>
       </div>
     </div>
   </div>
