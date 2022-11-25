@@ -3,13 +3,13 @@ header('Content-Type: application/json');
 
 $wc_cosmos_options = get_option( 'woocommerce_woo-cosmos_settings'); 
 
-if ( isset( $_GET['order_id'] ) OR isset( $_POST['order_id'] ) ) {
+/*if ( isset( $_GET['order_id'] ) OR isset( $_POST['order_id'] ) ) {
   $order = wc_get_order( $_REQUEST['order_id'] );
   $userWp = wp_get_current_user( );
   if ( $order->user_id !== $userWp->ID ) {
     wp_die( 'Mhhhh!', 'Error' );
   } 
-}  
+}  */
  
 $cosmos_parse_referer = parse_url(sanitize_text_field($_SERVER['HTTP_REFERER']));
 $comsos_referer = $cosmos_parse_referer['scheme'] . '://' . $cosmos_parse_referer['host'];

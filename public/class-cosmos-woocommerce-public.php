@@ -140,11 +140,17 @@ class Cosmos_Woocommerce_Public {
       $selected_payment_method_id = $woocommerce->session->get( 'chosen_payment_method' );
       $selected_payment_method = $woocommerce->payment_gateways->payment_gateways()[ $selected_payment_method_id ];
       $order_status  = $order->get_status( );  
+      $configMake = get_option("cosmos_pay_config_approved");
+ 
+      if ($configMake === 'false' || $configMake === false) {
+        include plugin_dir_path(__FILE__) . "partials/cosmos-payment-config-tpl.php";
+      } else {
+        if ( $order_status !== 'cancelled' ) {
+          include plugin_dir_path(__FILE__) . "partials/cosmos-payment-tpl.php";
+        } else
+          include plugin_dir_path(__FILE__) . "partials/cosmos-payment-cancel-tpl.php";      
+      }
 
-      if ( $order_status !== 'cancelled' ) {
-        include plugin_dir_path(__FILE__) . "partials/cosmos-payment-tpl.php";
-      } else
-        include plugin_dir_path(__FILE__) . "partials/cosmos-payment-cancel-tpl.php";
     }
   }
 	/**

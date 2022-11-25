@@ -1,4 +1,4 @@
-function startChecking( order_id, mainDomain, finalApiUrl, memo, isBlocked, nonceSelectChain, nonceDeleteOrder, nonceSwitchMethod ) {
+function startChecking( order_id, mainDomain, finalApiUrl, memo, isBlocked, isLogged, nonceSelectChain, nonceDeleteOrder, nonceSwitchMethod ) {
 
   $('.woocommerce-thankyou-order-received').hide()
   $('.woocommerce-order-details').hide()
@@ -20,7 +20,7 @@ function startChecking( order_id, mainDomain, finalApiUrl, memo, isBlocked, nonc
       if( result.method === 'keplr' ) { 
         $( "#mainTransaction2" ).fadeIn( 500 )      
         keplrData = await exportCosmosConfig.initKeplr.addKeplrChain( result.current_chain )
-        exportCosmosConfig.initsend.sendByChain( result.current_chain, result.adressToPay, result.OrderPrice, order_id, memo, $ )  
+        exportCosmosConfig.initsend.sendByChain( result.current_chain, result.adressToPay, result.OrderPrice, order_id, memo, isLogged, $ )  
       } else {
         $( "#mainTransaction2" ).fadeOut( 500 )
         $( "#mainTransaction3" ).fadeIn( 500 )
@@ -66,7 +66,7 @@ function startChecking( order_id, mainDomain, finalApiUrl, memo, isBlocked, nonc
           $( '#mainTransaction' ).fadeOut( 500 )
           $( '#mainTransaction2' ).fadeIn( 500 )
           keplrData = await exportCosmosConfig.initKeplr.addKeplrChain( result.current_chain )
-          exportCosmosConfig.initsend.sendByChain(result.current_chain, result.adressToPay, result.OrderPrice, order_id, memo, $)  
+          exportCosmosConfig.initsend.sendByChain(result.current_chain, result.adressToPay, result.OrderPrice, order_id, memo, isLogged, $)  
         } else {
           $( '#mainTransaction2' ).fadeOut( 500 )
           $( '#mainTransaction3' ).fadeIn( 500 )
@@ -86,7 +86,7 @@ function startChecking( order_id, mainDomain, finalApiUrl, memo, isBlocked, nonc
       let foundChain = exportCosmosConfig.initConfig.find( element => element.name === result.current_chain )
       
       keplrData = await exportCosmosConfig.initKeplr.addKeplrChain( result.current_chain )
-      exportCosmosConfig.initsend.sendByChain( result.current_chain, result.adressToPay, result.OrderPrice, order_id, memo, $ )
+      exportCosmosConfig.initsend.sendByChain( result.current_chain, result.adressToPay, result.OrderPrice, order_id, memo, isLogged, $ )
     }) 
   })
   

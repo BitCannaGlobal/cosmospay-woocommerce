@@ -1,46 +1,13 @@
 <?php 
 
 session_start();
-$cosmosTokenTime = time();
+ 
 $cosmosPluginDir = plugin_dir_url( __FILE__ );
-
-function generateRandomString($length = 10) {
-  $characters = '0123456789';
-  $charactersLength = strlen($characters);
-  $randomString = '';
-  for ($i = 0; $i < $length; $i++) {
-    $randomString .= $characters[rand(0, $charactersLength - 1)];
-    }
-  return $randomString;
-}
+ 
  
 $configCosmosAddr = get_option('woocommerce_woo-cosmos_settings');
 $configDisclaimer = get_option("cosmos_pay_disclaimer_approved");
-
-$errorLogin = false;
-if ( isset( $_POST['adminChecker'] ) ) {
-
-  $user = get_user_by( 'login', wp_get_current_user()->user_login );
-  if ( $user && wp_check_password( esc_attr( $_POST['adminChecker'] ), $user->data->user_pass, $user->ID ) ) {
-    header( 'Location: ' . get_admin_url() . 'admin.php?page=' . $this->plugin_name . '-settings&cosmosToken=' . get_option('cosmosToken') );
-    $cosmosTokenTime = time();
-    $_SESSION["addressTimer"] = $cosmosTokenTime;    
-  } else {
-    $errorLogin = true;
-  }
-}
-
-if ( isset( $_GET['cosmosToken'] ) ) {
-  $cosmosToken = get_option( 'cosmosToken' );
-  if ( $cosmosToken != $_GET['cosmosToken'] ) {    
-    header('Location: ' . get_admin_url() . 'admin.php?page=' . $this->plugin_name . '-settings');
-  } else if ( empty($_SESSION["addressTimer"] ) ) {
-    header( 'Location: ' . get_admin_url() . 'admin.php?page=' . $this->plugin_name . '-settings' );
-  } else if ( $cosmosTokenTime > ($_SESSION["addressTimer"] + 60000) ) {
-    header('Location: ' . get_admin_url() . 'admin.php?page=' . $this->plugin_name . '-settings');
-  }
-}
-
+ 
 $errorDisclaimer = false;
 if (isset($_POST['checkDisclamer'])) {
   if(isset($_POST['disclamer1'])) {
@@ -56,7 +23,6 @@ if (!get_option("cosmosToken")) {
 }
 
 // Call configuration file from our server
-// $string = file_get_contents( "https://store-api.bitcanna.io" );
 $string = wp_remote_retrieve_body( wp_remote_get( 'https://store-api.bitcanna.io' ) );
 if (empty($string)) {
   wp_die('Unable to call configuration', 'Error');
@@ -65,9 +31,10 @@ if (empty($string)) {
 $json_a = json_decode($string, true);
 if ($json_a === null) {
   wp_die('Error in json configuration', 'Error');
-}  
-
-?>
+} 
+  
+?>   
+   
 	<div class="wrap" align="center">
 	
     <img src="<?php echo plugins_url(); ?>/<?php echo esc_attr($this->plugin_name); ?>/public/img/cosmos.png" width="160" height="120">
@@ -103,44 +70,23 @@ if ($json_a === null) {
             </form>
           </div>
         </div>
-<?php } elseif (!isset($_GET['cosmosToken'])) { ?>
-
-        <div class="card-body">
-        <?php if ($errorLogin === true) { ?>
-          <font color="red">Login error!</font>
-        <?php } ?>
-          <div class="wrap">
  
-          <form method="post" action="<?php echo get_admin_url(); ?>admin.php?page=<?php echo esc_attr($this->plugin_name); ?>-settings">
- 
-              <table class="form-table">
-                <tr valign="top">
-                <th scope="row">Admin password</th>
-                <td><input type="password" name="adminChecker" value="" size="50" /></td>
-                </tr> 
-                
-              </table>
-              
-              <?php submit_button("Confirm"); ?>
-
-          </form>
-          </div>
-        </div>
-<?php } else { ?>
+        <?php } else { ?>
 
         <div class="card-body">
           <div class="wrap">
-          <?php 
-          if ( isset( $_POST['update_address'] ) ) {
-            
-            foreach ( $json_a as $chains_data => $chain ) {
-              if ( $chain['active'] === 'true' ) {
-                $configCosmosAddr[$chain['name']] = sanitize_text_field( $_POST[$chain['name']] );
-              }
-            }  
-            update_option( 'woocommerce_woo-cosmos_settings', $configCosmosAddr );
-          } 
-          ?>   
+           <?php 
+           if ( isset( $_POST['update_address'] ) ) {
+             
+             foreach ( $json_a as $chains_data => $chain ) {
+               if ( $chain['active'] === 'true' ) {
+                 $configCosmosAddr[$chain['name']] = sanitize_text_field( $_POST[$chain['name']] );
+               }
+             }  
+             update_option( 'woocommerce_woo-cosmos_settings', $configCosmosAddr );
+             update_option( 'cosmos_pay_config_approved', 'true' );
+           } 
+           ?>   
           <form method="post"> 
               <table class="form-table">
                 <?php 
@@ -150,7 +96,11 @@ if ($json_a === null) {
                     ?>
                       <tr valign="top">
                       <th scope="row">Your <?php echo esc_attr( $chain['name'] ); ?> address </th>
-                      <td><input type="text" id="<?php echo esc_attr( $chain['name'] ); ?>" name="<?php echo esc_attr( $chain['name'] ); ?>" value="<?php echo esc_attr( $configCosmosAddr[$chain['name']] ); ?>" size="50" /></td>
+                      <td><input required="required" type="text" id="<?php echo esc_attr( $chain['name'] ); ?>" name="<?php echo esc_attr( $chain['name'] ); ?>" value="<?php echo esc_attr( $configCosmosAddr[$chain['name']] ); ?>" size="50" />
+                      <div id="goodAddr_<?php echo esc_attr( $chain['name'] ); ?>" style="display: none; color:green;">This is a valid address.</div>
+                      <div id="badAddr_<?php echo esc_attr( $chain['name'] ); ?>" style="display: none; color:red;">This is an invalid address. Please double-check.</div>
+                      <div id="badAddrPrefix_<?php echo esc_attr( $chain['name'] ); ?>" style="display: none; color:red;">Bad address prefiix</div>
+                      </td>
                       <td>
                       <button id="target" value="<?php echo esc_attr( $chain['name'] ); ?>" name="get_chain" class="button button-primary" type="button">
                         Connect <?php echo esc_attr( $chain['name'] ); ?>
@@ -170,11 +120,54 @@ if ($json_a === null) {
           </form>
           </div>
         </div>
- <?php } ?>
- 
-</div>	
-<script>
+    <?php } ?>  
+</div>
 
+
+
+<script type="importmap">
+  //"bech32": "https://unpkg.com/bech32@2.0.0/dist/index.js" 
+  {
+    "imports": {
+      "bech32": "<?php echo plugins_url(); ?>/<?php echo esc_attr($this->plugin_name); ?>/public/js/bech32.js"
+    }
+  }
+</script>
+<script type="module">
+import bech32 from "bech32";
+  
+jQuery(function($){  
+ 
+  $.getJSON( "https://store-api.bitcanna.io", async function( result ) {
+    result.forEach((element) => {
+      console.log(element) 
+      // $("#"+element.name).change(function() {
+      $("#"+element.name).on('input', function() {   
+
+        try {
+          let bech32Decode = bech32.decode($(this).val())
+          console.log(bech32Decode) 
+          if (bech32Decode.prefix === element.coinLookup.addressPrefix) {
+            $("#goodAddr_"+element.name).show();
+            $("#badAddr_"+element.name).hide();    
+            $("#badAddrPrefix_"+element.name).hide();
+          } else {
+            $("#goodAddr_"+element.name).hide();
+            $("#badAddr_"+element.name).hide(); 
+            $("#badAddrPrefix_"+element.name).show();
+          }
+
+        } catch (error) {
+          console.error(error);
+          $("#goodAddr_"+element.name).hide();
+          $("#badAddrPrefix_"+element.name).hide();
+          $("#badAddr_"+element.name).show();
+        }      
+      });        
+    });         
+  });     
+});  
+  
 jQuery(function($){  
   $( "button[name='get_chain']" ).click( async function() {
     var chainCall = $(this).val()
@@ -188,17 +181,23 @@ jQuery(function($){
         await window.keplr.enable(chainId)  
         const offlineSigner = window.keplr.getOfflineSigner(chainId)
         const accounts = await offlineSigner.getAccounts()         
-        console.log(accounts[0].address)
         $( '#' + foundChain.name ).val(accounts[0].address)
       });     
     } 
   });
-});
+});  
+
+</script>
+
+
+
+
+<script>
 
 </script>
 <style>
 .card-cosmos {
-  width: 800px; /*1*/
+  width: 900px; /*1*/
   margin: 0px auto; /*2*/
   background-color: white; /*3*/
   box-shadow: 0px 5px 20px #999; /*4*/

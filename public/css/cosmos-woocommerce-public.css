@@ -4,6 +4,17 @@
  */
 /* Float four columns side by side */
 
+.cosmos-h3 { 
+  font-size: 1.2em;
+  font-weight: bold;
+}
+.cosmos-h5 { 
+  font-size: 0.9sem;
+}
+
+.cosmos-bold { 
+  font-weight: bold;
+}
 
 .column {
   float: left;
@@ -204,7 +215,7 @@
 .cosmos-card .box select {
   background-color: white;
   color: black;
-  padding: 12px;
+  
   width: 410px;
   max-width: 100%;
   border: 2px solid #f3f3f3;

@@ -82,9 +82,7 @@ exports.sendByChain = async function(getChainId, recipient, amount, orderId, mem
             $("#finalUrlTx").attr("href", "https://www.mintscan.io/" + foundChain.mintscanId + "/txs/"+result.transactionHash)
             $("#viewFinalTx").show(1000);
             $("#timer").hide();
-            setTimeout(function() {
-              window.location.href = "/my-account/view-order/"+orderId+"/";   
-            }, 5000);        
+        
           })
           .catch(function (error) {
             // console.log(error);
