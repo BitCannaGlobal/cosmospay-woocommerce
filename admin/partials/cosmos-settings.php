@@ -89,28 +89,33 @@ if ($json_a === null) {
            ?>   
           <form method="post"> 
               <table class="form-table">
-                <?php 
-
-                  foreach ($json_a as $chains_data => $chain) {
-                    if ($chain['active'] === 'true') {
-                    ?>
+              
+          <?php     
+            
+            foreach ( $selected_payment_method->form_fields['option_name']['options'] as $key => $value ) {                    
+              $keyAvaible = array_search( $key, $selected_payment_method->settings['option_name'] );  
+              if ( $keyAvaible === 0 || !empty( $keyAvaible ) ) {
+          ?>
                       <tr valign="top">
-                      <th scope="row">Your <?php echo esc_attr( $chain['name'] ); ?> address </th>
-                      <td><input required="required" type="text" id="<?php echo esc_attr( $chain['name'] ); ?>" name="<?php echo esc_attr( $chain['name'] ); ?>" value="<?php echo esc_attr( $configCosmosAddr[$chain['name']] ); ?>" size="50" />
-                      <div id="goodAddr_<?php echo esc_attr( $chain['name'] ); ?>" style="display: none; color:green;">This is a valid address.</div>
-                      <div id="badAddr_<?php echo esc_attr( $chain['name'] ); ?>" style="display: none; color:red;">This is an invalid address. Please double-check.</div>
-                      <div id="badAddrPrefix_<?php echo esc_attr( $chain['name'] ); ?>" style="display: none; color:red;">Bad address prefiix</div>
+                      <th scope="row">Your <?php echo esc_attr( $value ); ?> address </th>
+                      <td><input required="required" type="text" id="<?php echo esc_attr( $value ); ?>" name="<?php echo esc_attr( $value ); ?>" value="<?php echo esc_attr( $configCosmosAddr[$value] ); ?>" size="50" />
+                      <div id="goodAddr_<?php echo esc_attr( $value ); ?>" style="display: none; color:green;">This is a valid address.</div>
+                      <div id="badAddr_<?php echo esc_attr( $value ); ?>" style="display: none; color:red;">This is an invalid address. Please double-check.</div>
+                      <div id="badAddrPrefix_<?php echo esc_attr( $value ); ?>" style="display: none; color:red;">Bad address prefiix</div>
                       </td>
                       <td>
-                      <button id="target" value="<?php echo esc_attr( $chain['name'] ); ?>" name="get_chain" class="button button-primary" type="button">
-                        Connect <?php echo esc_attr( $chain['name'] ); ?>
+                      <button id="target" value="<?php echo esc_attr( $value ); ?>" name="get_chain" class="button button-primary" type="button">
+                        Connect <?php echo esc_attr( $value ); ?>
                       </button>   
                       </td>
-                      </tr>    
-                    <?php 
-                    }          
-                  }  
-                ?>   
+                      </tr>           
+ 
+          <?php 
+              }                
+            }
+          ?>               
+ 
+  
                  <input type="hidden" name="update_address" value="true">
                  <div id="resultAddr"></div>
               </table>

@@ -138,6 +138,9 @@ class Cosmos_Woocommerce_Admin {
       );   
     }
     function get_cosmos_settings(){
+      global $woocommerce; 
+      $selected_payment_method = $woocommerce->payment_gateways->payment_gateways()["woo-cosmos"];
+      
       include( plugin_dir_path( __FILE__ ) . 'partials/cosmos-settings.php' );    
     }	
     function prefix_append_support_and_faq_links( $links_array, $plugin_file_name, $plugin_data, $status ) {

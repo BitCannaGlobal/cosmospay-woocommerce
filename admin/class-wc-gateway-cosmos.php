@@ -81,7 +81,7 @@ class WC_Gateway_Cosmos extends WC_Gateway_COD {
             ),         
        );
         // Add input part
-        foreach ($json_a as $chains_data => $chain) {
+        /*foreach ($json_a as $chains_data => $chain) {
           if ($chain['active'] === 'true') {
             $title = $chain['name'];
             $this->form_fields[$chain['name']] = array( 
@@ -95,7 +95,7 @@ class WC_Gateway_Cosmos extends WC_Gateway_COD {
             );         
             array_push($this->form_fields[$chain['name']], $this->form_fields[$chain['name']]);
           }
-        }
+        } */
         
     }			
 } 
