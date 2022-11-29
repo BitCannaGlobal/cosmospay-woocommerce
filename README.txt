@@ -5,7 +5,7 @@ Donate link: https://commerce.bitcanna.io
 Tags: payments, cryptocurrency, blockchain
 Requires at least: 3.0.1
 Tested up to: 6.0.2
-Stable tag: 1.0.8
+Stable tag: 1.0.9
 Requires PHP: 7.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -37,7 +37,7 @@ For our FAQ we'd like to refer you to our [documentation website](https://docs.b
 5. After just a couple seconds, the payment will be performed and you can view your transaction.
 
 == Changelog ==
-= 1.0.8 =
+= 1.0.9 =
 * Fix css front
 * Fix address backend
 
