@@ -18,10 +18,6 @@ if (isset($_POST['checkDisclamer'])) {
   }
 } 
 
-if (!get_option("cosmosToken")) {
-  add_option("cosmosToken", generateRandomString(32));
-}
-
 // Call configuration file from our server
 $string = wp_remote_retrieve_body( wp_remote_get( 'https://store-api.bitcanna.io' ) );
 if (empty($string)) {
