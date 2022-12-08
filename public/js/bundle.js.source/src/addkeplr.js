@@ -115,7 +115,7 @@ exports.addKeplrChain = async function(getChainId) {
       sign: {
         preferNoSetMemo: true,
         preferNoSetFee: true,
-        disableBalanceCheck: true,
+        disableBalanceCheck: false,
       },
     };
     // You can get the address/public keys by `getAccounts` method.

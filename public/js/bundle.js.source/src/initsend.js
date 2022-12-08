@@ -26,7 +26,7 @@ exports.sendByChain = async function(getChainId, recipient, amount, orderId, mem
     // See above.
     const chainId = foundChain.chainId;
     await window.keplr.enable(chainId);
-    const offlineSigner = window.getOfflineSigner(chainId);
+    const offlineSigner = await window.getOfflineSignerAuto(chainId);
     const accounts = await offlineSigner.getAccounts();
 
     const client = await SigningStargateClient.connectWithSigner(
