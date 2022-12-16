@@ -63,6 +63,7 @@ if ($json_a === null) {
             </fieldset>
             <input id="checkDisclamer" name="checkDisclamer" type="hidden" value="true">
             <?php submit_button("Confirm"); ?>
+ 
             </form>
           </div>
         </div>
@@ -97,7 +98,7 @@ if ($json_a === null) {
                       <td><input required="required" type="text" id="<?php echo esc_attr( $value ); ?>" name="<?php echo esc_attr( $value ); ?>" value="<?php echo esc_attr( $configCosmosAddr[$value] ); ?>" size="50" />
                       <div id="goodAddr_<?php echo esc_attr( $value ); ?>" style="display: none; color:green;">This is a valid address.</div>
                       <div id="badAddr_<?php echo esc_attr( $value ); ?>" style="display: none; color:red;">This is an invalid address. Please double-check.</div>
-                      <div id="badAddrPrefix_<?php echo esc_attr( $value ); ?>" style="display: none; color:red;">Bad address prefiix</div>
+                      <div id="badAddrPrefix_<?php echo esc_attr( $value ); ?>" style="display: none; color:red;">This address does not belong to this chain. Please update to the right address.</div>
                       </td>
                       <td>
                       <button id="target" value="<?php echo esc_attr( $value ); ?>" name="get_chain" class="button button-primary" type="button">
@@ -115,8 +116,10 @@ if ($json_a === null) {
                  <input type="hidden" name="update_address" value="true">
                  <div id="resultAddr"></div>
               </table>
-              
-              <?php submit_button(); ?>
+        <button type="submit" class="button button-primary" id="sendConfig" name="mymod_pc_form" >
+          <i class="process-icon-save"></i> Save Changes
+        </button>               
+ 
 
           </form>
           </div>
@@ -152,10 +155,12 @@ jQuery(function($){
             $("#goodAddr_"+element.name).show();
             $("#badAddr_"+element.name).hide();    
             $("#badAddrPrefix_"+element.name).hide();
+            $('#sendConfig').prop('disabled', false);
           } else {
             $("#goodAddr_"+element.name).hide();
             $("#badAddr_"+element.name).hide(); 
             $("#badAddrPrefix_"+element.name).show();
+            $('#sendConfig').prop('disabled', true);
           }
 
         } catch (error) {
@@ -163,6 +168,7 @@ jQuery(function($){
           $("#goodAddr_"+element.name).hide();
           $("#badAddrPrefix_"+element.name).hide();
           $("#badAddr_"+element.name).show();
+          $('#sendConfig').prop('disabled', true);
         }      
       });        
     });         
@@ -183,6 +189,10 @@ jQuery(function($){
         const offlineSigner = window.keplr.getOfflineSigner(chainId)
         const accounts = await offlineSigner.getAccounts()         
         $( '#' + foundChain.name ).val(accounts[0].address)
+            $("#goodAddr_"+foundChain.name).show();
+            $("#badAddr_"+foundChain.name).hide();    
+            $("#badAddrPrefix_"+foundChain.name).hide();   
+            $('#sendConfig').prop('disabled', false);
       });     
     } 
   });

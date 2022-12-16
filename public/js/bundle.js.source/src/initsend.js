@@ -8,7 +8,7 @@ const {
 } = require('@cosmjs/stargate')
 const axios = require('axios')
 
-exports.sendByChain = async function(getChainId, recipient, amount, orderId, memo, $) {  
+exports.sendByChain = async function(getChainId, recipient, amount, orderId, memo, isLogged, $) {  
     //console.log(initConfig.default)
     let foundChain = initConfig.default.find(element => element.name === getChainId); 
     //console.log(foundChain)
@@ -29,8 +29,17 @@ exports.sendByChain = async function(getChainId, recipient, amount, orderId, mem
     const offlineSigner = await window.getOfflineSignerAuto(chainId);
     const accounts = await offlineSigner.getAccounts();
 
+    // Failover RPC
+    let finalRpc = ''
+    try {
+      let failOver = await axios.get(foundChain.rpcURL)
+      finalRpc = foundChain.rpcURL    
+    } catch (e) {
+      finalRpc = foundChain.rpcRegistryURL
+    } 
+    
     const client = await SigningStargateClient.connectWithSigner(
-      foundChain.rpcURL,
+      finalRpc,
       offlineSigner
     )
 
@@ -48,18 +57,13 @@ exports.sendByChain = async function(getChainId, recipient, amount, orderId, mem
     
     try {
       const result = await client.sendTokens(accounts[0].address, recipient, [amountFinal], fee, memo)
-      assertIsBroadcastTxSuccess(result)
-      //console.log(result)
       if (result.code !== undefined && result.code !== 0) {
         alert("Failed to send tx: " + result.log || result.rawLog);
       } else {
         $("#spinner").hide('slow');
         $("#AcceptedTx").show(); 
-        //alert("Succeed to send tx");
         $("#returnResult").html( result.transactionHash );
-        //console.log(order_id);
-         
-        // var returnUrl = '/index.php?fc=module&module=cosmospay&controller=validation&check&tx_hash='+result.transactionHash
+
         var returnUrl = '/api-cosmos/?tx_hash='+result.transactionHash+'&order_id='+orderId          
         
         axios.get(returnUrl)
@@ -67,8 +71,7 @@ exports.sendByChain = async function(getChainId, recipient, amount, orderId, mem
             console.log(response);
             $("#returnResultStore").html( response.data.message );
             $("#sendForm").hide(); 
-            $("#viewFinalTx").show();
-  
+            $("#viewFinalTx").show();  
             $("#checkAdresse").show();
             $("#waitingcheckAdresse").hide();
             $("#checkAdresse").css("color", "#31BF91");
@@ -82,10 +85,14 @@ exports.sendByChain = async function(getChainId, recipient, amount, orderId, mem
             $("#finalUrlTx").attr("href", "https://www.mintscan.io/" + foundChain.mintscanId + "/txs/"+result.transactionHash)
             $("#viewFinalTx").show(1000);
             $("#timer").hide();
-        
+            if (isLogged === 'true') {
+              setTimeout(function() {
+                window.location.href = "/my-account/view-order/" + orderId + "/";
+              }, 5000);                 
+            }        
           })
           .catch(function (error) {
-            // console.log(error);
+            console.log(error);
           });  
       }      
     } catch (e) {
