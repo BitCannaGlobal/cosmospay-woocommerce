@@ -142,7 +142,7 @@ class Cosmos_Woocommerce_Public {
       $order_status  = $order->get_status( );  
       $configMake = get_option("cosmos_pay_config_approved");
  
-      if ($configMake === 'false' || $configMake === false) {
+      if ($configMake === 'false' || $configMake === false || empty($selected_payment_method->settings['option_name'])) {
         include plugin_dir_path(__FILE__) . "partials/cosmos-payment-config-tpl.php";
       } else {
         if ( $order_status !== 'cancelled' ) {

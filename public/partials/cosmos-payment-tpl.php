@@ -16,7 +16,7 @@
   } else {
     $isLogged = 'false';
   }  
- 
+
 ?>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
  
@@ -31,18 +31,20 @@
       </div>
       <div class="cosmos-card-amount">
         <?php echo get_woocommerce_currency_symbol() ?>  <?php echo esc_attr( $order->get_total() ) ?>
-        <?php echo get_woocommerce_currency() ?>  
+        <?php echo get_woocommerce_currency() ?>          
       </div>
     </div>
+    
     <div class="cosmos-content">
       Select your cryptocurrency:
       <div class="box">
         <select id="selectChain">
           <?php     
-
+            
             foreach ( $selected_payment_method->form_fields['option_name']['options'] as $key => $value ) {                    
               $keyAvaible = array_search( $key, $selected_payment_method->settings['option_name'] );  
               if ( $keyAvaible === 0 || !empty( $keyAvaible ) ) {
+                $setDefault = esc_attr( $selected_payment_method->form_fields['option_name']['options'][$selected_payment_method->settings['option_name'][0]] );
               ?>
           <option id="<?php echo esc_attr( $value ); ?>"><?php echo esc_attr( $value ); ?></option>
           <?php }                
@@ -50,7 +52,9 @@
           ?> 
         </select>
       </div>
+    
       <br /><br />
+ 
       Select your prefered way to pay:
       <div class="box">
         <select id="selectMethod">
@@ -217,6 +221,7 @@ Time left: <span class="cosmos-bold"><span id="minutes"></span>:<span id="second
     var nonceSelectChain = "<?php echo esc_attr( wp_create_nonce( 'cosmos_select_chain' ) ) ?>"
     var nonceDeleteOrder = "<?php echo esc_attr( wp_create_nonce( 'cosmos_delete_order' ) ) ?>"
     var nonceSwitchMethod = "<?php echo esc_attr( wp_create_nonce( 'cosmos_switch_method' ) ) ?>"
+    var setDefault = "<?php echo esc_attr( $setDefault ) ?>"
     console.log('isLogged '+isLogged)
     startChecking( 
       order_id, 
@@ -227,7 +232,8 @@ Time left: <span class="cosmos-bold"><span id="minutes"></span>:<span id="second
       isLogged,
       nonceSelectChain, 
       nonceDeleteOrder, 
-      nonceSwitchMethod 
+      nonceSwitchMethod,
+      setDefault
     );
   })
   function copyRecipient() {

@@ -1,4 +1,4 @@
-function startChecking( order_id, mainDomain, finalApiUrl, memo, isBlocked, isLogged, nonceSelectChain, nonceDeleteOrder, nonceSwitchMethod ) {
+function startChecking( order_id, mainDomain, finalApiUrl, memo, isBlocked, isLogged, nonceSelectChain, nonceDeleteOrder, nonceSwitchMethod, setDefault ) {
 
   $('.woocommerce-thankyou-order-received').hide()
   $('.woocommerce-order-details').hide()
@@ -32,10 +32,11 @@ function startChecking( order_id, mainDomain, finalApiUrl, memo, isBlocked, isLo
     }) 
   } else {
     $('#mainTransaction').show();
+    console.log(setDefault)
     // https://store-wp.walaxy.io/index.php?name=api-cosmos
-    // $.post( mainDomain+"/api-cosmos/", { switch: 'BitCanna', order_id: order_id, nonce: nonceSelectChain }, async function( result ) {
-    $.post( finalApiUrl, { switch: 'BitCanna', order_id: order_id, nonce: nonceSelectChain }, async function( result ) {
-      let foundChain = await exportCosmosConfig.initConfig.find( element => element.name === 'BitCanna' );
+    // $.post( mainDomain+"/api-cosmos/", { switch: setDefault, order_id: order_id, nonce: nonceSelectChain }, async function( result ) {
+    $.post( finalApiUrl, { switch: setDefault, order_id: order_id, nonce: nonceSelectChain }, async function( result ) {
+      let foundChain = await exportCosmosConfig.initConfig.find( element => element.name === setDefault );
       $( "#returnChain" ).html( result.current_chain )
       $( "#returnLcd" ).html( result.lcd )
       $( "#finalAmount" ).html( result.OrderPrice + ' ' + result.chainDenom )
