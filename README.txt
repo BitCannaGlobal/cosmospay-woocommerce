@@ -5,7 +5,7 @@ Donate link: https://commerce.bitcanna.io
 Tags: payments, cryptocurrency, blockchain
 Requires at least: 3.0.1
 Tested up to: 6.1.1
-Stable tag: 1.0.14
+Stable tag: 1.0.15
 Requires PHP: 7.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -37,6 +37,10 @@ For our FAQ we'd like to refer you to our [documentation website](https://docs.b
 5. After just a couple seconds, the payment will be performed and you can view your transaction.
 
 == Changelog ==
+= 1.0.15 =
+* Fix bug on default chain selected
+* Add message error if no chain is selected in adminCP
+
 = 1.0.13 =
 * Add failover on RPC/LCD
 * Fix bech32 admin confirmation
