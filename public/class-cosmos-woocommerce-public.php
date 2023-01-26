@@ -95,8 +95,10 @@ class Cosmos_Woocommerce_Public {
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
-    wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/bundle.js', array( 'jquery' ), $this->version, 'all' );
-    wp_enqueue_script( $this->plugin_name . '_mainscript', plugin_dir_url( __FILE__ ) . 'js/mainscript.js', array( 'jquery' ), $this->version, true );
+    if ( is_checkout() ) {
+      wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/bundle.js', array( 'jquery' ), $this->version, 'all' );
+      wp_enqueue_script( $this->plugin_name . '_mainscript', plugin_dir_url( __FILE__ ) . 'js/mainscript.js', array( 'jquery' ), $this->version, true );
+    }
 	}
 	/**
 	 * Start cosmos pay form
