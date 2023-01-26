@@ -16,7 +16,12 @@
   } else {
     $isLogged = 'false';
   }  
-
+ 
+  if( wp_is_mobile() ){
+    $isMobile = 'true';
+  } else {
+    $isMobile = 'false';
+  }  
 ?>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
  
@@ -58,7 +63,9 @@
       Select your prefered way to pay:
       <div class="box">
         <select id="selectMethod">
-          <option value="keplr">Pay automatically with keplr</option>
+          <?php if (!wp_is_mobile()) { ?>
+            <option value="keplr">Pay automatically with keplr</option>
+          <?php } ?>          
           <option value="another">Pay with another wallet</option>
         </select>
       </div>
@@ -222,7 +229,8 @@ Time left: <span class="cosmos-bold"><span id="minutes"></span>:<span id="second
     var nonceDeleteOrder = "<?php echo esc_attr( wp_create_nonce( 'cosmos_delete_order' ) ) ?>"
     var nonceSwitchMethod = "<?php echo esc_attr( wp_create_nonce( 'cosmos_switch_method' ) ) ?>"
     var setDefault = "<?php echo esc_attr( $setDefault ) ?>"
-    console.log('isLogged '+isLogged)
+    var isMobile = "<?php echo $isMobile ?>"
+ 
     startChecking( 
       order_id, 
       mainDomain, 
@@ -233,7 +241,8 @@ Time left: <span class="cosmos-bold"><span id="minutes"></span>:<span id="second
       nonceSelectChain, 
       nonceDeleteOrder, 
       nonceSwitchMethod,
-      setDefault
+      setDefault,
+      isMobile
     );
   })
   function copyRecipient() {

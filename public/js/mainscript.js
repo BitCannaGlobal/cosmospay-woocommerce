@@ -1,4 +1,4 @@
-function startChecking( order_id, mainDomain, finalApiUrl, memo, isBlocked, isLogged, nonceSelectChain, nonceDeleteOrder, nonceSwitchMethod, setDefault ) {
+function startChecking( order_id, mainDomain, finalApiUrl, memo, isBlocked, isLogged, nonceSelectChain, nonceDeleteOrder, nonceSwitchMethod, setDefault, isMobile ) {
 
   $('.woocommerce-thankyou-order-received').hide()
   $('.woocommerce-order-details').hide()
@@ -47,9 +47,14 @@ function startChecking( order_id, mainDomain, finalApiUrl, memo, isBlocked, isLo
       $( "#chainIcon" ).show()
       timerOrder( result.startTime )
     });  
-    
-    $.post( finalApiUrl, { switchMethod: 'keplr', order_id: order_id, nonce: nonceSwitchMethod  }, function( result ) {
-      // console.log(result);
+ 
+    let finalMethod = ''
+    if(isMobile) {
+      finalMethod = 'another'
+    } else
+      finalMethod = 'keplr'
+      
+    $.post( finalApiUrl, { switchMethod: finalMethod, order_id: order_id, nonce: nonceSwitchMethod  }, function( result ) {
     });      
   }
     
