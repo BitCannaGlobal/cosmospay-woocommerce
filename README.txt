@@ -5,7 +5,7 @@ Donate link: https://commerce.bitcanna.io
 Tags: payments, cryptocurrency, blockchain
 Requires at least: 3.0.1
 Tested up to: 6.1.1
-Stable tag: 1.0.16
+Stable tag: 1.0.17
 Requires PHP: 7.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -37,6 +37,10 @@ For our FAQ we'd like to refer you to our [documentation website](https://docs.b
 5. After just a couple seconds, the payment will be performed and you can view your transaction.
 
 == Changelog ==
+= 1.0.17 =
+* Fix keplr bug
+* Change status order
+
 = 1.0.16 =
 * Fix call api-store only on checkout page
 * Fix mobile view on checkout

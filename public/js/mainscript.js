@@ -32,7 +32,6 @@ function startChecking( order_id, mainDomain, finalApiUrl, memo, isBlocked, isLo
     }) 
   } else {
     $('#mainTransaction').show();
-    console.log(setDefault)
     // https://store-wp.walaxy.io/index.php?name=api-cosmos
     // $.post( mainDomain+"/api-cosmos/", { switch: setDefault, order_id: order_id, nonce: nonceSelectChain }, async function( result ) {
     $.post( finalApiUrl, { switch: setDefault, order_id: order_id, nonce: nonceSelectChain }, async function( result ) {
@@ -49,11 +48,13 @@ function startChecking( order_id, mainDomain, finalApiUrl, memo, isBlocked, isLo
     });  
  
     let finalMethod = ''
-    if(isMobile) {
+    if(isMobile === true) {
       finalMethod = 'another'
     } else
       finalMethod = 'keplr'
       
+      console.log(isMobile)
+      console.log(finalMethod)
     $.post( finalApiUrl, { switchMethod: finalMethod, order_id: order_id, nonce: nonceSwitchMethod  }, function( result ) {
     });      
   }

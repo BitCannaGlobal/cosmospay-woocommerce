@@ -46,7 +46,7 @@ if (isset($_GET['tx_hash']) && isset($_GET['order_id'])) {
         $order = new WC_Order($orderId);
         if (!empty($order)) {
           $note = 'Tx of order: '.esc_attr( $orderTx );
-          $order->update_status( 'completed' );
+          $order->update_status( 'processing' ); // completed
           $order->add_order_note( $note , true );
           // TODO add link to explorer
           // wc_update_order_item_meta($orderId, '_cosmos_tx', esc_attr());
