@@ -82,7 +82,7 @@ class Cosmos_Woocommerce_Public {
 	 *
 	 * @since    1.0.0
 	 */
-	public function enqueue_scripts() {
+	public function enqueue_scripts($order_id) {
 
 		/**
 		 * This function is provided for demonstration purposes only.
@@ -95,10 +95,17 @@ class Cosmos_Woocommerce_Public {
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
-    if ( is_checkout() ) {
-      wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/bundle.js', array( 'jquery' ), $this->version, 'all' );
-      wp_enqueue_script( $this->plugin_name . '_mainscript', plugin_dir_url( __FILE__ ) . 'js/mainscript.js', array( 'jquery' ), $this->version, true );
-    } 
+    global $woocommerce;    
+    
+    $selected_payment_method_id = $woocommerce->session->get( 'chosen_payment_method' );
+    $selected_payment_method = $woocommerce->payment_gateways->payment_gateways()[ $selected_payment_method_id ];  
+ 
+    if($selected_payment_method->title === 'Cosmos Pay') {
+      if ( is_checkout() ) {
+        wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/bundle.js', array( 'jquery' ), $this->version, 'all' );
+        wp_enqueue_script( $this->plugin_name . '_mainscript', plugin_dir_url( __FILE__ ) . 'js/mainscript.js', array( 'jquery' ), $this->version, true );
+      }
+    }
 
 	}
 	/**
@@ -117,51 +124,56 @@ class Cosmos_Woocommerce_Public {
     $userWoo = $order->user_id;
     $orderData = $order->get_data( ); 
     $order_status  = $order->get_status( );
-        
-    $getMemo = wc_get_order_item_meta( $order_id , '_cosmos_memo', true ); 
-
-    if ($order_status !== 'cancelled') {
-      $order->update_status( 'pending', __( 'Awaiting Cosmos payment', 'wc-gateway-offline' ) );
-    }
     
-    if ( empty( $getMemo ) ) {
-      // Mark as pending (we're awaiting the payment)
-      // $order->update_status( 'pending', __( 'Awaiting Cosmos payment', 'wc-gateway-offline' ) ); 
-      // Remove cart
-      WC()->cart->empty_cart();
-      // Generate Memo
-      $memoBc = $this->generateRandomString();
-      wc_update_order_item_meta( $order_id, '_cosmos_memo', esc_attr( $memoBc ) );
-      $note = 'Memo created: '.esc_attr( $memoBc );
-      $order->add_order_note( $note , true );
-      $order->save(); 
-    }
- 
-    if ( $orderData["status"] === 'completed' ) {
-      if ( is_page( 'checkout' ) ) {
-        wp_enqueue_script( 'jquery' );
-        wp_enqueue_script(
-          'finalBitcannaJs',
-          plugin_dir_url(__FILE__).'js/finalBitcanna.js'
-        );
+    
+    if($order->payment_method_title === 'Cosmos Pay') {
+      $getMemo = wc_get_order_item_meta( $order_id , '_cosmos_memo', true ); 
+
+      if ($order_status !== 'cancelled') {
+        $order->update_status( 'pending', __( 'Awaiting Cosmos payment', 'wc-gateway-offline' ) );
       }
-    } else { 
       
-      $selected_payment_method_id = $woocommerce->session->get( 'chosen_payment_method' );
-      $selected_payment_method = $woocommerce->payment_gateways->payment_gateways()[ $selected_payment_method_id ];       
-      $configMake = get_option("cosmos_pay_config_approved");
- 
-      if ($woocommerce->payment_gateways->payment_gateways()[ 'woo-cosmos' ]->enabled === 'yes') {     
-        if ($configMake === 'false' || $configMake === false || empty($selected_payment_method->settings['option_name'])) {
-          include plugin_dir_path(__FILE__) . "partials/cosmos-payment-config-tpl.php";
-        } else {
-          if ( $order_status !== 'cancelled' ) {
-            include plugin_dir_path(__FILE__) . "partials/cosmos-payment-tpl.php";
-          } else
-            include plugin_dir_path(__FILE__) . "partials/cosmos-payment-cancel-tpl.php";      
-        }
+      if ( empty( $getMemo ) ) {
+        // Mark as pending (we're awaiting the payment)
+        // $order->update_status( 'pending', __( 'Awaiting Cosmos payment', 'wc-gateway-offline' ) ); 
+        // Remove cart
+        WC()->cart->empty_cart();
+        // Generate Memo
+        $memoBc = $this->generateRandomString();
+        wc_update_order_item_meta( $order_id, '_cosmos_memo', esc_attr( $memoBc ) );
+        $note = 'Memo created: '.esc_attr( $memoBc );
+        $order->add_order_note( $note , true );
+        $order->save(); 
       }
+  
+      if ( $orderData["status"] === 'completed' ) {
+        if ( is_page( 'checkout' ) ) {
+          wp_enqueue_script( 'jquery' );
+          wp_enqueue_script(
+            'finalBitcannaJs',
+            plugin_dir_url(__FILE__).'js/finalBitcanna.js'
+          );
+        }
+      } else { 
+        
+        $selected_payment_method_id = $woocommerce->session->get( 'chosen_payment_method' );
+        $selected_payment_method = $woocommerce->payment_gateways->payment_gateways()[ $selected_payment_method_id ];       
+        $configMake = get_option("cosmos_pay_config_approved");
+  
+        if ($woocommerce->payment_gateways->payment_gateways()[ 'woo-cosmos' ]->enabled === 'yes') {     
+          if ($configMake === 'false' || $configMake === false || empty($selected_payment_method->settings['option_name'])) {
+            include plugin_dir_path(__FILE__) . "partials/cosmos-payment-config-tpl.php";
+          } else {
+            if ( $order_status !== 'cancelled' ) {
+              include plugin_dir_path(__FILE__) . "partials/cosmos-payment-tpl.php";
+            } else
+              include plugin_dir_path(__FILE__) . "partials/cosmos-payment-cancel-tpl.php";      
+          }
+        }
+      }    
     }
+        
+
   }
 	/**
 	 * Generate function for random memo
