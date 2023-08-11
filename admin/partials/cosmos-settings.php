@@ -83,19 +83,38 @@ if ($json_a === null) {
              update_option( 'woocommerce_woo-cosmos_settings', $configCosmosAddr );
              update_option( 'cosmos_pay_config_approved', 'true' );
            } 
+           
+            if(!empty($selected_payment_method->settings['option_name'])) {
+              
+            
            ?>   
           <form method="post"> 
               <table class="form-table">
               
           <?php     
-            
-            foreach ( $selected_payment_method->form_fields['option_name']['options'] as $key => $value ) {                    
-              $keyAvaible = array_search( $key, $selected_payment_method->settings['option_name'] );  
-              if ( $keyAvaible === 0 || !empty( $keyAvaible ) ) {
+ 
+
+            foreach ( $selected_payment_method->form_fields['option_name']['options'] as $key => $value ) {  
+               $keyAvaible = array_search( $key, $selected_payment_method->settings['option_name'] );  
+              
+              
+              if ( $keyAvaible === 0 || !empty( $keyAvaible ) ) { 
           ?>
                       <tr valign="top">
                       <th scope="row">Your <?php echo esc_attr( $value ); ?> address </th>
-                      <td><input required="required" type="text" id="<?php echo esc_attr( $value ); ?>" name="<?php echo esc_attr( $value ); ?>" value="<?php echo esc_attr( $configCosmosAddr[$value] ); ?>" size="50" />
+                      <?php 
+                        if(!isset($configCosmosAddr[$value])) {
+                          ?>
+                            <td><input required="required" type="text" id="<?php echo esc_attr( $value ); ?>" name="<?php echo esc_attr( $value ); ?>" value="" size="50" />
+                          <?php
+                        } else {
+                          ?>
+                            <td><input required="required" type="text" id="<?php echo esc_attr( $value ); ?>" name="<?php echo esc_attr( $value ); ?>" value="<?php echo esc_attr( $configCosmosAddr[$value] ); ?>" size="50" />
+                          <?php                          
+                        }
+                      
+                      ?>
+                      
                       <div id="goodAddr_<?php echo esc_attr( $value ); ?>" style="display: none; color:green;">This is a valid address.</div>
                       <div id="badAddr_<?php echo esc_attr( $value ); ?>" style="display: none; color:red;">This is an invalid address. Please double-check.</div>
                       <div id="badAddrPrefix_<?php echo esc_attr( $value ); ?>" style="display: none; color:red;">This address does not belong to this chain. Please update to the right address.</div>
@@ -122,6 +141,10 @@ if ($json_a === null) {
  
 
           </form>
+          <?php } else { ?>
+            <h4>No blockchain is configured, select a blockchain in the woocomerce payment configuration</h4>
+          <?php } ?>
+          
           </div>
         </div>
     <?php } ?>  
