@@ -1,27 +1,28 @@
 {
-  "name": "cosmos-pay-source",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "",
-  "main": "index.js",
+  "name": "cosmos-pay-source",
   "scripts": {
-    "dev": "webpack-dev-server"
+    "build": "webpack --mode=production --node-env=production",
+    "build:dev": "webpack --mode=development",
+    "build:prod": "webpack --mode=production --node-env=production",
+    "watch": "webpack --watch",
+    "serve": "webpack serve"
   },
-  "keywords": [],
-  "author": "BitCanna",
-  "license": "ISC",
   "devDependencies": {
-    "html-webpack-plugin": "^4.3.0",
-    "webpack": "^4.43.0",
-    "webpack-cli": "^3.3.11",
-    "webpack-dev-server": "^3.11.0"
+    "html-webpack-plugin": "^5.5.3",
+    "prettier": "^3.1.0",
+    "webpack": "^5.89.0",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^4.15.1",
+    "workbox-webpack-plugin": "^7.0.0"
   },
   "dependencies": {
-    "@chainapsis/cosmosjs": "0.0.3-alpha.3",
     "@cosmjs/launchpad": "^0.23.0",
-    "@cosmjs/proto-signing": "^0.26.5",
-    "@cosmjs/stargate": "^0.26.5",
+    "@cosmjs/proto-signing": "^0.31.3",
+    "@cosmjs/stargate": "^0.31.3",
     "axios": "^0.19.0",
     "fast-deep-equal": "^3.1.1",
-    "jquery": "^3.6.0"
+    "jquery": "^3.7.1"
   }
 }

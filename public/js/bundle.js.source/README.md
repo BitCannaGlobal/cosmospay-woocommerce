@@ -1,4 +1,4 @@
-# Cosmos pay sources
+# 🚀 Cosmos pay sources
 
 This repository is reserved for compiler sources of the Cosmos Pay WooCommerce plugin
 
@@ -12,3 +12,4 @@ Compile
     webpack
 
 The source to include in the plugin is in `build/bundle.js`
+
