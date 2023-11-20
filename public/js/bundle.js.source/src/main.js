@@ -1,14 +1,3 @@
-const {
-  SigningCosmosClient
-} = require("@cosmjs/launchpad");
- 
-import {
-  DirectSecp256k1HdWallet
-} from '@cosmjs/proto-signing'
-import {
-  assertIsBroadcastTxSuccess,
-  SigningStargateClient,
-} from '@cosmjs/stargate'
 import initConfig from './remote.config'
 import initKeplr from './addkeplr'
 import initsend from './initsend'
@@ -16,6 +5,7 @@ import $ from 'jquery';
 window.jQuery = $;
 window.$ = $;
  
+jQuery.fn.load = function(callback){ $(window).on("load", callback) };
 
 
 async function updateUi(data) {
@@ -26,16 +16,6 @@ async function updateUi(data) {
  
 
 $(document).ready(function () {
-    //console.log(cosmosConfig)
-/*    cosmosConfig.forEach(function(item){ 
-      $('#listChains')
- 
-        .append(`<label class="btn btn-secondary active">
-                <input type="radio" id="${item.name}" name="get_chain" value="${item.name}" checked> 
-                ${item.name}</label>`)
- 
-    });   */  
-    
   var keplrData = ''
   $('input[name="get_chain"]').click(function () { 
     if ($(this).is(':checked')) {

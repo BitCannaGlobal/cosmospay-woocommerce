@@ -1,8 +1,5 @@
 const initConfig = require('./remote.config');
 const {
-  SigningCosmosClient
-} = require("@cosmjs/launchpad");
-const {
   assertIsBroadcastTxSuccess,
   SigningStargateClient,
 } = require('@cosmjs/stargate')
@@ -64,6 +61,9 @@ exports.sendByChain = async function(getChainId, recipient, amount, orderId, mem
         $("#AcceptedTx").show(); 
         $("#returnResult").html( result.transactionHash );
 
+        // Prestashop
+        // var returnUrl = '/index.php?fc=module&module=cosmospay&controller=validation&check&tx_hash='+result.transactionHash
+        // Woocomerce
         var returnUrl = '/api-cosmos/?tx_hash='+result.transactionHash+'&order_id='+orderId          
         
         axios.get(returnUrl)

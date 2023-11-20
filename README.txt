@@ -37,6 +37,11 @@ For our FAQ we'd like to refer you to our [documentation website](https://docs.b
 5. After just a couple seconds, the payment will be performed and you can view your transaction.
 
 == Changelog ==
+= 1.0.20 =
+* Update webpack version from v4 to v5
+* Update cosmJs from 0.23.0 to 0.31.3
+* Fix bitcanna logo path
+
 = 1.0.19 =
 * Fix array_search() method in admin panel
 
