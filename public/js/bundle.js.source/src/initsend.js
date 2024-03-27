@@ -2,7 +2,11 @@ const initConfig = require('./remote.config');
 const {
   assertIsBroadcastTxSuccess,
   SigningStargateClient,
+  GasPrice,
+  calculateFee,
+  defaultRegistryTypes
 } = require('@cosmjs/stargate')
+const { coins } = require('@cosmjs/proto-signing')
 const axios = require('axios')
 
 exports.sendByChain = async function(getChainId, recipient, amount, orderId, memo, isLogged, $) {  
@@ -40,20 +44,61 @@ exports.sendByChain = async function(getChainId, recipient, amount, orderId, mem
       offlineSigner
     )
 
-    const amountFinal = {
+    const amountFinal = [{
       denom: foundChain.coinLookup.chainDenom,
       amount: amount.toString(),
-    }
+    }]
+    
+    // Update fee gas
+    const foundMsgType = defaultRegistryTypes.find(
+      (element) =>
+        element[0] ===
+        "/cosmos.bank.v1beta1.MsgSend"
+    );
+
+    const finalMsg = {
+      typeUrl: foundMsgType[0],
+        value: foundMsgType[1].fromPartial({
+          fromAddress: accounts[0].address,
+          toAddress: recipient,
+          amount: amountFinal,
+        }),
+      }
+
+    // Fee/Gas
+    const gasEstimation = await client.simulate(
+      accounts[0].address,
+      [finalMsg],
+      'Send Tokens'
+    );
+
+    const usedFee = calculateFee(
+      Math.round(gasEstimation * foundChain.feeMultiplier),
+      GasPrice.fromString(
+        foundChain.gasPrice +
+          foundChain.coinLookup.chainDenom
+      )
+    );
+
     const fee = {
       amount: [{
         denom: foundChain.coinLookup.chainDenom,
-        amount: '5000',
+        amount: (usedFee.amount[0].amount / 1000000),
       }, ],
-      gas: '200000',
+      gas: usedFee.gas,
     }
     
+    const feeAmount = coins(usedFee.amount[0].amount, foundChain.coinLookup.chainDenom);
+    let finalFee = {
+      amount: feeAmount,
+      gas: usedFee.gas
+    }
+    
+    console.log('fee', fee)
+    
     try {
-      const result = await client.sendTokens(accounts[0].address, recipient, [amountFinal], fee, memo)
+      // const result = await client.sendTokens(accounts[0].address, recipient, [amountFinal], fee, memo)
+      const result = await client.signAndBroadcast(accounts[0].address, [finalMsg], finalFee, memo)
       if (result.code !== undefined && result.code !== 0) {
         alert("Failed to send tx: " + result.log || result.rawLog);
       } else {
