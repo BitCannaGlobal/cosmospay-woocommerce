@@ -239,7 +239,7 @@ if (isset($_GET['tx_hash']) && isset($_GET['order_id'])) {
     // BCNA: https://lcd.bitcanna.io/cosmos/tx/v1beta1/txs?events=message.action=%27/cosmos.bank.v1beta1.MsgSend%27&pagination.limit=10&order_by=0&limit=10
     // OSMOSIS: https://rest.cosmos.directory/osmosis/cosmos/tx/v1beta1/txs?query=message.action=%27/cosmos.bank.v1beta1.MsgSend%27&pagination.limit=10&order_by=2&limit=10
     // COSMOS: https://rest.cosmos.directory/cosmoshub/cosmos/tx/v1beta1/txs?query=message.action=%27/cosmos.bank.v1beta1.MsgSend%27&pagination.limit=10&order_by=2&limit=10
-    $json = file_get_contents($getLcdPay . '/cosmos/tx/v1beta1/txs?' . $paramName . '=message.sender=%27' . $addrWallet . '%27&&pagination.limit=10&order_by=2&limit=10');
+    $json = file_get_contents($getLcdPay . '/cosmos/tx/v1beta1/txs?' . $paramName . '=message.sender=%27/cosmos.bank.v1beta1.MsgSend%27&pagination.limit=10&order_by=2&limit=10');
 
     $obj = json_decode($json);
 
