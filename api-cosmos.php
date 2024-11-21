@@ -201,14 +201,50 @@ if (isset($_GET['tx_hash']) && isset($_GET['order_id'])) {
     
   echo '{ "return": "canceled" }';
   
-} elseif ( isset($_GET['check']) && isset( $_GET['order_id'] ) ) {
+} elseif (isset($_GET['check']) && isset($_GET['order_id'])) {
 
-  $orderId = sanitize_text_field( $_GET['order_id'] );
-  $getLcdPay = wc_get_order_item_meta( $orderId , '_cosmos_lcd_pay', true ); 
-  $json = file_get_contents($getLcdPay.'/cosmos/tx/v1beta1/txs?events=message.action=%27/cosmos.bank.v1beta1.MsgSend%27&order_by=ORDER_BY_DESC&pagination.limit=10');
-  $obj = json_decode($json);
-    
-  echo $json;  
-} else
-  echo 'Bad parameters';
-  
+    $orderId = sanitize_text_field($_GET['order_id']);
+    $getLcdPay = wc_get_order_item_meta($orderId, '_cosmos_lcd_pay', true);
+
+    // Get info from LCD Node to get the Tendermint/CometBFT version
+    $nodeInfoJson = file_get_contents($getLcdPay . '/cosmos/base/tendermint/v1beta1/node_info');
+    $nodeInfo = json_decode($nodeInfoJson, true);
+
+    if ($nodeInfo !== null && isset($nodeInfo['default_node_info']['version'])) {
+        // Get the string
+        $versionString = $nodeInfo['default_node_info']['version'];
+        // Split the string '.' => "v0" "38" "11"
+        $versionParts = explode('.', $versionString);
+
+        if (isset($versionParts[1])) {
+            // Get the minor version and convert to integer
+            $minorVersion = intval($versionParts[1]);
+
+            // Check the minor version and apply the proper endpoint fix
+            if ($minorVersion >= 38) {
+                $paramName = 'query';
+            } else {
+                $paramName = 'events';
+            }
+        } else {
+            // If something fails getting the version.. use "query" as default
+            $paramName = 'query';
+        }
+    } else {
+        // If something fails querying the node.. use "query" as default
+        $paramName = 'query';
+    }
+
+    // Build the proper Query
+    // BCNA: https://lcd.bitcanna.io/cosmos/tx/v1beta1/txs?events=message.action=%27/cosmos.bank.v1beta1.MsgSend%27&pagination.limit=10&order_by=0&limit=10
+    // OSMOSIS: https://rest.cosmos.directory/osmosis/cosmos/tx/v1beta1/txs?query=message.action=%27/cosmos.bank.v1beta1.MsgSend%27&pagination.limit=10&order_by=2&limit=10
+    // COSMOS: https://rest.cosmos.directory/cosmoshub/cosmos/tx/v1beta1/txs?query=message.action=%27/cosmos.bank.v1beta1.MsgSend%27&pagination.limit=10&order_by=2&limit=10
+    $json = file_get_contents($getLcdPay . '/cosmos/tx/v1beta1/txs?' . $paramName . '=message.sender=%27/cosmos.bank.v1beta1.MsgSend%27&pagination.limit=10&order_by=2&limit=10');
+
+    $obj = json_decode($json);
+
+    echo $json;
+} else {
+    echo 'Incorrect parameters';
+}
+
